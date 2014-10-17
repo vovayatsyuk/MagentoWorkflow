@@ -1,0 +1,15 @@
+<snippet>
+    <content><![CDATA[
+\$trace = debug_backtrace();
+foreach (\$trace as &\$call) {
+    unset(\$call['object']);
+    unset(\$call['args']);
+}
+echo '<pre>';
+print_r(\$trace);
+echo '</pre>';
+${1:die;}
+]]></content>
+    <tabTrigger>deb</tabTrigger>
+    <scope>source.php</scope>
+</snippet>

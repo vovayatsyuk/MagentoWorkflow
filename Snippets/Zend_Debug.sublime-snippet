@@ -1,0 +1,7 @@
+<snippet>
+    <content><![CDATA[
+Zend_Debug::dump(${1:__METHOD__}, ${2:null}, ${3:true});
+]]></content>
+    <tabTrigger>zd</tabTrigger>
+    <scope>source.php</scope>
+</snippet>
