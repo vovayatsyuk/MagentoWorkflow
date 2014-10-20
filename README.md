@@ -7,11 +7,11 @@ A package of Magento snippets and various helpers for Sublime Text 3
  - On Mac
     ```
 cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/
-git clone git@github.com:vovayatsyuk/magento-sublime.git Magento
+git clone https://github.com/vovayatsyuk/magento-sublime.git Magento
 ```
 
  - On Windows
     ```
 cd "%AppData%\Sublime Text 3\Packages"
-git clone git@github.com:vovayatsyuk/magento-sublime.git Magento
+git clone https://github.com/vovayatsyuk/magento-sublime.git Magento
 ```
