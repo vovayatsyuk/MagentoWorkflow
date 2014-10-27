@@ -1,0 +1,10 @@
+[
+    {
+        "caption": "Magento: Insert class name",
+        "command": "insert_class_name"
+    },
+    {
+        "caption": "Magento: Insert if ip",
+        "command": "insert_if_ip"
+    }
+]

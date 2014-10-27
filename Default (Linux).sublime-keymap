@@ -1,0 +1,4 @@
+[
+    { "keys": ["ctrl+alt+m", "ctrl+alt+c", "ctrl+alt+n"], "command": "insert_class_name" },
+    { "keys": ["ctrl+alt+m", "ctrl+alt+i", "ctrl+alt+p"], "command": "insert_if_ip" }
+]
