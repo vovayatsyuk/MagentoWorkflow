@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[
-Mage::log(${1:__METHOD__}, null, '', true);
+Mage::log(${1:__METHOD__}, null, 'custom.log', true);
 ]]></content>
     <tabTrigger>log</tabTrigger>
     <scope>source.php</scope>
