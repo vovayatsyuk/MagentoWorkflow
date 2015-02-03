@@ -7,6 +7,8 @@ A package of Magento snippets and various helpers for Sublime Text 3
 
 - Insert if ip statement ([Sublime Ip Address plugin](https://github.com/vovayatsyuk/sublime-ip-address#installation) is used)
 
+    <kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> or use `Tools->Command Pallette`
+
  ```php
  if (Mage::helper('core/http')->getRemoteAddr() === 'DETECTED_IP_ADDRESS') {
      ...
@@ -14,6 +16,8 @@ A package of Magento snippets and various helpers for Sublime Text 3
  ```
 
 - Automatic class name generator for classes inside `app/code` folder
+
+    <kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> or use `Tools->Command Pallette`
 
 #### Snippets
 
