@@ -23,10 +23,10 @@ A package of Magento snippets and various helpers for Sublime Text 3
 
 Tab trigger | Description
 ------------|------------
-zd | `Zend_Debug::dump(${1:__METHOD__});`
-deb | Clean stack trace (debug_backtrace)
+zd | `Zend_Debug::dump(__METHOD__);`
+deb | Clean stack trace with `subl://` scheme links to each file. [Windows](https://github.com/ktunkiewicz/subl-handler), [MacOS](https://github.com/dhoulb/subl)
 remoteAddr | `Mage::helper('core/http')->getRemoteAddr()`
-log | `Mage::log(${1:__METHOD__}, null, 'custom.log', true);`
+log | `Mage::log(__METHOD__, null, 'custom.log', true);`
 
 ## Installation
 1. [Install Sublime Ip Address](https://github.com/vovayatsyuk/sublime-ip-address#installation) plugin.
