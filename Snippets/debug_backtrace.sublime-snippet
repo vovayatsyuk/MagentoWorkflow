@@ -5,14 +5,14 @@
 \$prefix = str_replace('/', DIRECTORY_SEPARATOR, \$prefix);
 \$output = '';
 foreach (\$trace as \$call) {
-    \$output .= \$call['class'] . \$call['type'] . \$call['function'];
-    \$output .= "\n";
     \$output .= sprintf(
         "<a href='%s' title='%s'>%s</a>",
         "subl://open?url=file://{\$call['file']}&line={\$call['line']}",
         \$call['file'],
         str_replace(\$prefix, '', \$call['file']) . ':' . \$call['line']
     );
+    \$output .= "\n";
+    \$output .= \$call['class'] . \$call['type'] . \$call['function'];
     \$output .= "\n";
     \$output .= "\n";
 }
