@@ -12,7 +12,29 @@ foreach (\$trace as \$call) {
         str_replace(\$prefix, '', \$call['file']) . ':' . \$call['line']
     );
     \$output .= "\n";
-    \$output .= \$call['class'] . \$call['type'] . \$call['function'];
+    \$args = array();
+    foreach (\$call['args'] as \$arg) {
+        if (get_class(\$arg)) {
+            \$arg = get_class(\$arg);
+        } else {
+            switch (gettype(\$arg)) {
+                case 'array': case 'boolean':
+                    ob_start();
+                    var_dump(\$arg);
+                    \$arg = ob_get_clean();
+                    \$arg = preg_replace("/\]\=\>\n(\s+)/m", "] => ", \$arg);
+                    \$arg = trim(\$arg, " \n");
+                    break;
+                case 'string':
+                    \$arg = '"' . \$arg . '"';
+                    break;
+                default:
+                    // do nothing
+            }
+        }
+        \$args[] = \$arg;
+    }
+    \$output .= \$call['class'] . \$call['type'] . \$call['function'] . '(' . implode(', ', \$args) . ')';
     \$output .= "\n";
     \$output .= "\n";
 }
