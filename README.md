@@ -6,7 +6,7 @@ A package of Magento snippets and various helpers for Sublime Text 3
 #### Insert if ip statement ([Sublime Ip Address plugin](https://github.com/vovayatsyuk/sublime-ip-address#installation) is required)
 <kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> or use `Tools->Command Pallette->ifip`
 
-![If ip in action](https://cldup.com/Gwoi2aCRrb.gif)
+![If ip in action](https://cldup.com/eHudW3vnBv.gif)
 
 #### Automatic class name generator
 <kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> or use `Tools->Command Pallette->class name`
