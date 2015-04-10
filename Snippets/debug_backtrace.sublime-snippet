@@ -3,20 +3,20 @@
 \$trace = debug_backtrace();
 \$prefix = str_replace('index.php', '', \$_SERVER['DOCUMENT_ROOT'] . \$_SERVER['SCRIPT_NAME']);
 \$prefix = str_replace('/', DIRECTORY_SEPARATOR, \$prefix);
-echo '<pre>';
+\$output = '';
 foreach (\$trace as \$call) {
-    echo \$call['class'] . \$call['type'] . \$call['function'];
-    echo '<br/>';
-    echo sprintf(
+    \$output .= \$call['class'] . \$call['type'] . \$call['function'];
+    \$output .= "\n";
+    \$output .= sprintf(
         "<a href='%s' title='%s'>%s</a>",
         "subl://open?url=file://{\$call['file']}&line={\$call['line']}",
         \$call['file'],
         str_replace(\$prefix, '', \$call['file']) . ':' . \$call['line']
     );
-    echo '<br/>';
-    echo '<br/>';
+    \$output .= "\n";
+    \$output .= "\n";
 }
-echo '</pre>';
+echo '<pre>' . \$output . '</pre>';
 ${1:die;}
 ]]></content>
     <tabTrigger>deb</tabTrigger>
