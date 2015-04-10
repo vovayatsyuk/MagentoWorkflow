@@ -3,23 +3,30 @@ A package of Magento snippets and various helpers for Sublime Text 3
 
 ## Main Features
 
-#### Helpers
+#### Insert if ip statement ([Sublime Ip Address plugin](https://github.com/vovayatsyuk/sublime-ip-address#installation) is required)
+<kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> or use `Tools->Command Pallette->ifip`
 
-- Insert if ip statement ([Sublime Ip Address plugin](https://github.com/vovayatsyuk/sublime-ip-address#installation) is used)
+![If ip in action](https://cldup.com/Gwoi2aCRrb.gif)
 
-    <kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> or use `Tools->Command Pallette`
+#### Automatic class name generator
+<kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> or use `Tools->Command Pallette->class name`
 
- ```php
- if (Mage::helper('core/http')->getRemoteAddr() === 'DETECTED_IP_ADDRESS') {
-     ...
- }
- ```
+![Automatic class name generator](https://cldup.com/D_3LFBbJzK.gif)
 
-- Automatic class name generator for classes inside `app/code` folder
+It works for classes inside `app/code` folder only.
 
-    <kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> or use `Tools->Command Pallette`
+#### Clean stack trace
+Just type `deb` in php file, expand it and check browser output.
 
-#### Snippets
+![Stack trace with subl:// links](https://cldup.com/on6mFRqU88-2000x2000.png)
+
+To make `subl://` scheme links working, please use the following solutions:
+- [Windows](https://github.com/ktunkiewicz/subl-handler)
+- [MacOS](https://github.com/dhoulb/subl)
+
+**These links are working on local server only**
+
+### Snippets
 
 Tab trigger | Description
 ------------|------------
