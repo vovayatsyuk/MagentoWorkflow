@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[
-Zend_Debug::dump(${1:__METHOD__});
+\Zend_Debug::dump(${1:__METHOD__});
 ]]></content>
     <tabTrigger>zd</tabTrigger>
     <scope>source.php</scope>
