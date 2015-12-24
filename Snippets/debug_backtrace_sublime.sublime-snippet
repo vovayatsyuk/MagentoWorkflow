@@ -41,6 +41,6 @@ foreach (\$trace as \$call) {
 echo '<pre>' . \$output . '</pre>';
 ${1:die;}
 ]]></content>
-    <tabTrigger>debs</tabTrigger>
+    <tabTrigger>debsubl</tabTrigger>
     <scope>source.php</scope>
 </snippet>

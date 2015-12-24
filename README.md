@@ -16,7 +16,7 @@ A package of Magento snippets and various helpers for Sublime Text 3
 It works for classes inside `app/code` folder only.
 
 #### Clean stack trace
-Just type `deb` in php file, expand it and check browser output.
+Just type `deb` or `debsubl` in php file, expand it and check browser output.
 
 ![Stack trace with subl:// links](https://cldup.com/on6mFRqU88-2000x2000.png)
 
@@ -30,8 +30,10 @@ To make `subl://` scheme links working, please use the following solutions:
 
 Tab trigger | Description
 ------------|------------
-zd | `Zend_Debug::dump(__METHOD__);`
-deb | Clean stack trace with `subl://` scheme links to each file. [Windows](https://github.com/ktunkiewicz/subl-handler), [MacOS](https://github.com/dhoulb/subl)
+zd | `\Zend_Debug::dump(__METHOD__);`
+deb | Clean stack trace
+debsubl | Clean stack trace with `subl://` scheme links to each file. [Windows](https://github.com/ktunkiewicz/subl-handler), [MacOS](https://github.com/dhoulb/subl)
+deblog | Clean stack written into `var/log/custom.log`
 remoteAddr | `Mage::helper('core/http')->getRemoteAddr()`
 log | `Mage::log(__METHOD__, null, 'custom.log', true);`
 
