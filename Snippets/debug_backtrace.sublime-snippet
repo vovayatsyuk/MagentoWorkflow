@@ -1,29 +1,24 @@
 <snippet>
     <content><![CDATA[
 \$trace = debug_backtrace();
-\$prefix = str_replace('index.php', '', \$_SERVER['DOCUMENT_ROOT'] . \$_SERVER['SCRIPT_NAME']);
-\$prefix = str_replace('/', DIRECTORY_SEPARATOR, \$prefix);
-\$output = '';
+\$output = "\n";
 foreach (\$trace as \$call) {
-    \$output .= sprintf(
-        "<a href='%s' title='%s'>%s</a>",
-        "subl://open?url=file://{\$call['file']}&line={\$call['line']}",
-        \$call['file'],
-        str_replace(\$prefix, '', \$call['file']) . ':' . \$call['line']
-    );
+    \$output .= \$call['file'] . ':' . \$call['line'];
     \$output .= "\n";
     \$args = array();
     foreach (\$call['args'] as \$arg) {
-        if (get_class(\$arg)) {
+        if (is_object(\$arg) && get_class(\$arg)) {
             \$arg = get_class(\$arg);
         } else {
             switch (gettype(\$arg)) {
-                case 'array': case 'boolean':
-                    ob_start();
-                    var_dump(\$arg);
-                    \$arg = ob_get_clean();
-                    \$arg = preg_replace("/\]\=\>\n(\s+)/m", "] => ", \$arg);
-                    \$arg = trim(\$arg, " \n");
+                case 'NULL':
+                    \$arg = 'null';
+                    break;
+                case 'array':
+                    \$arg = 'array';
+                    break;
+                case 'boolean':
+                    \$arg = \$arg ? 'true' : 'false';
                     break;
                 case 'string':
                     \$arg = '"' . \$arg . '"';
@@ -34,9 +29,7 @@ foreach (\$trace as \$call) {
         }
         \$args[] = \$arg;
     }
-    \$output .= \$call['class'] . \$call['type'] . \$call['function'] . '(' . implode(', ', \$args) . ')';
-    \$output .= "\n";
-    \$output .= "\n";
+    \$output .= \$call['class'] . \$call['type'] . \$call['function'] . '(' . implode(', ', \$args) . ')' . "\n\n";
 }
 echo '<pre>' . \$output . '</pre>';
 ${1:die;}
