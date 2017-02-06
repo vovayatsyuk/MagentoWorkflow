@@ -29,6 +29,9 @@ foreach (\$trace as \$call) {
         }
         \$args[] = \$arg;
     }
+    \$call['class']    = isset(\$call['class'])    ? \$call['class']    : '';
+    \$call['type']     = isset(\$call['type'])     ? \$call['type']     : '';
+    \$call['function'] = isset(\$call['function']) ? \$call['function'] : '';
     \$output .= \$call['class'] . \$call['type'] . \$call['function'] . '(' . implode(', ', \$args) . ')' . "\n\n";
 }
 Mage::log(\$output, null, '${1:custom.log}', true);
