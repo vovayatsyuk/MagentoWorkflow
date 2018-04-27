@@ -56,7 +56,7 @@ use <kbd>Ctrl+Alt+m,Ctrl+Alt+n,Ctrl+Alt+s</kbd> shortcut.
 A namespace will be generated according to psr-4 rules from composer.json:
 
 ```php
-namespace Vovayatsyuk\Alsoviewed\Model\Config\Source;
+namespace ${Vovayatsyuk\Alsoviewed\Model\Config\Source};
 ```
 
 #### Insert class name
@@ -67,7 +67,7 @@ use <kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> shortcut.
 Class name will be generated:
 
 ```php
-class Basis
+class ${Basis}
 ```
 
 ## Snippets
@@ -75,7 +75,7 @@ class Basis
 #### zd
 
 ```php
-\Zend_Debug::dump(__METHOD__);
+\Zend_Debug::dump(${__METHOD__});
 ```
 
 #### deb
@@ -89,11 +89,11 @@ class Basis
 ```php
 \Magento\Framework\App\ObjectManager::getInstance()
     ->get('Psr\Log\LoggerInterface')
-    ->debug();
+    ->debug(${1});
 
 //OR
 
-Mage::log(__METHOD__, null, 'custom.log', true);
+Mage::log(${__METHOD__}, null, 'custom.log', true);
 ```
 
 ## Installation
