@@ -34,8 +34,7 @@ class Basis extends ${1}
 
 #### Insert if ip
 
-> [Sublime Ip Address](https://github.com/vovayatsyuk/sublime-ip-address#installation)
-plugin is required.
+> [Sublime Ip Address][IpAddress] plugin is required.
 
 `Tools > Command Pallette > Magento: Insert if ip` or
 use <kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> shortcut.
