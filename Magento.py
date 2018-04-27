@@ -7,7 +7,15 @@ from IpAddress.ipaddress.IpAddress import IpAddress as IpAddress
 class InsertIfIpCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         ip = IpAddress.instance().get()
-        template = "if (Mage::helper('core/http')->getRemoteAddr() === '%s') {\n    $0\n}"
+
+        # assume it's a Magento 2 if namespace is found
+        namespace = self.view.find_by_selector('meta.namespace.php')
+        if namespace:
+            command = "\Magento\Framework\App\ObjectManager::getInstance()->get('\Magento\Framework\HTTP\PhpEnvironment\RemoteAddress')->getRemoteAddress()"
+        else:
+            command = "Mage::helper('core/http')->getRemoteAddr()"
+
+        template = "if ('%s' === " + command + ") {\n    $0\n}"
 
         for region in self.view.sel():
             if not region.empty():
