@@ -17,7 +17,7 @@ Magento 1 and Magento 2 snippets and commands for Sublime Text 3
 
 #### Generate class
 
-`Tools > Command Pallette > Magento: Generate class` or
+`Tools > Command Palette > Magento: Generate class` or
 use <kbd>Ctrl+Alt+m,Ctrl+Alt+n,Ctrl+Alt+s</kbd> shortcut.
 
 The following code will be inserted with detected namespace and class name
@@ -36,7 +36,7 @@ class Basis extends ${1}
 
 > [Sublime Ip Address][IpAddress] plugin is required.
 
-`Tools > Command Pallette > Magento: Insert if ip` or
+`Tools > Command Palette > Magento: Insert if ip` or
 use <kbd>Ctrl+Alt+m,Ctrl+Alt+i,Ctrl+Alt+p</kbd> shortcut.
 
 The following code will be inserted with dynamically detected IP address:
@@ -49,7 +49,7 @@ if ('194.44.93.57' === $remoteAddress->getRemoteAddress()) {
 
 #### Insert namespace
 
-`Tools > Command Pallette > Magento: Insert namespace` or
+`Tools > Command Palette > Magento: Insert namespace` or
 use <kbd>Ctrl+Alt+m,Ctrl+Alt+n,Ctrl+Alt+s</kbd> shortcut.
 
 A namespace will be generated according to psr-4 rules from composer.json:
@@ -60,7 +60,7 @@ namespace ${Vovayatsyuk\Alsoviewed\Model\Config\Source};
 
 #### Insert class name
 
-`Tools > Command Pallette > Magento: Insert class name` or
+`Tools > Command Palette > Magento: Insert class name` or
 use <kbd>Ctrl+Alt+m,Ctrl+Alt+c,Ctrl+Alt+n</kbd> shortcut.
 
 Class name will be generated:
