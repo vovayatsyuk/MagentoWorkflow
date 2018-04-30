@@ -1,7 +1,0 @@
-<snippet>
-    <content><![CDATA[
-Mage::helper('core/http')->getRemoteAddr()
-]]></content>
-    <tabTrigger>remoteAddr</tabTrigger>
-    <scope>source.php</scope>
-</snippet>
