@@ -11,7 +11,7 @@ class InsertIfIpCommand(sublime_plugin.TextCommand):
         # assume it's a Magento 2 if namespace is found
         namespace = self.view.find_by_selector('meta.namespace.php')
         if namespace:
-            command = "\Magento\Framework\App\ObjectManager::getInstance()->get('\Magento\Framework\HTTP\PhpEnvironment\RemoteAddress')->getRemoteAddress()"
+            command = "\\Magento\\Framework\\App\\ObjectManager::getInstance()->get('\\Magento\\Framework\\HTTP\\PhpEnvironment\\RemoteAddress')->getRemoteAddress()"
         else:
             command = "Mage::helper('core/http')->getRemoteAddr()"
 
@@ -19,7 +19,7 @@ class InsertIfIpCommand(sublime_plugin.TextCommand):
 
         for region in self.view.sel():
             if not region.empty():
-                text = self.view.substr(region).replace('$', '\$')
+                text = self.view.substr(region).replace('$', '\\$')
                 self.view.run_command('insert_snippet', {'contents': template % (ip)})
                 self.view.run_command('insert_snippet', {'contents': text})
             else:
