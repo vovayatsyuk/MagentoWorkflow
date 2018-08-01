@@ -1,6 +1,0 @@
-[
-    { "keys": ["ctrl+super+m", "ctrl+super+g", "ctrl+super+c"], "command": "generate_class" },
-    { "keys": ["ctrl+super+m", "ctrl+super+c", "ctrl+super+n"], "command": "insert_class_name" },
-    { "keys": ["ctrl+super+m", "ctrl+super+n", "ctrl+super+s"], "command": "insert_namespace" },
-    { "keys": ["ctrl+super+m", "ctrl+super+i", "ctrl+super+p"], "command": "insert_if_ip" }
-]
