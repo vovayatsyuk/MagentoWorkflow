@@ -1,8 +1,7 @@
 <snippet>
     <content><![CDATA[
-\Magento\Framework\App\ObjectManager::getInstance()
-    ->get('Magento\Framework\Logger\Monolog')
-    ->pushHandler(new \Monolog\Handler\StreamHandler(BP . '/var/log/custom.log'))
+(new \Zend\Log\Logger())
+    ->addWriter(new \Zend\Log\Writer\Stream(BP . '/var/log/custom.log'))
     ->debug(${1});
 ]]></content>
     <tabTrigger>log</tabTrigger>
