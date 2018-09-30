@@ -1,0 +1,5 @@
+<snippet>
+    <content>number</content>
+    <tabTrigger>number</tabTrigger>
+    <scope>text.xml string.quoted.double.xml</scope>
+</snippet>

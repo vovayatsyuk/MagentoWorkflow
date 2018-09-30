@@ -1,0 +1,5 @@
+<snippet>
+    <content>boolean</content>
+    <tabTrigger>boolean</tabTrigger>
+    <scope>text.xml string.quoted.double.xml</scope>
+</snippet>

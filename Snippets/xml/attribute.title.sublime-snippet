@@ -1,0 +1,5 @@
+<snippet>
+    <content>title="$1"</content>
+    <tabTrigger>title</tabTrigger>
+    <scope>text.xml meta.tag.xml</scope>
+</snippet>

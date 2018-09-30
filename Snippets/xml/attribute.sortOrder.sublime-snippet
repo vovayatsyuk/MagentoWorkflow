@@ -1,0 +1,5 @@
+<snippet>
+    <content>sortOrder="${1:200}"</content>
+    <tabTrigger>sortOrder</tabTrigger>
+    <scope>text.xml meta.tag.xml</scope>
+</snippet>

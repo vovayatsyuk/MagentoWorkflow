@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[
+<virtualType name="$1" type="$2">
+    $0
+</virtualType>
+]]></content>
+    <tabTrigger>virtualType</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>

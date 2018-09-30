@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[
+<resources>
+    $0
+</resources>
+]]></content>
+    <tabTrigger>resources</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>
