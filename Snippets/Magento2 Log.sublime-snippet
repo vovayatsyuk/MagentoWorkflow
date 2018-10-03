@@ -2,7 +2,7 @@
     <content><![CDATA[
 (new \Zend\Log\Logger())
     ->addWriter(new \Zend\Log\Writer\Stream(BP . '/var/log/custom.log'))
-    ->debug(${1});
+    ->debug(${1:__METHOD__});
 ]]></content>
     <tabTrigger>log</tabTrigger>
     <scope>source.php</scope>
