@@ -3,12 +3,13 @@
     "completions": [
         {"trigger": "instance", "contents": "instance=\"$1\""},
         {"trigger": "name", "contents": "name=\"$1\""},
+        {"trigger": "path", "contents": "path=\"${1:mui/index/render}\""},
         {"trigger": "showInDefault", "contents": "showInDefault=\"${1:1}\""},
         {"trigger": "showInStore", "contents": "showInStore=\"${1:1}\""},
         {"trigger": "showInWebsite", "contents": "showInWebsite=\"${1:1}\""},
         {"trigger": "sortOrder", "contents": "sortOrder=\"${1:200}\""},
         {"trigger": "title", "contents": "title=\"$1\""},
-        {"trigger": "translate", "contents": "translate=\"${1:label}\""},
+        {"trigger": "translate", "contents": "translate=\"${1:true}\""},
         {"trigger": "type", "contents": "type=\"${1:text}\""},
         {"trigger": "xsi:type", "contents": "xsi:type=\"${1:string}\""},
     ]

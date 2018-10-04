@@ -1,20 +1,24 @@
 {
     "scope": "text.xml string.quoted.double.xml",
     "completions": [
-        // var types
+        {"trigger": "align"},
+        {"trigger": "array"},
+        {"trigger": "bodyTmpl"},
         {"trigger": "boolean"},
-        {"trigger": "string"},
-        {"trigger": "number"},
-
-        // field types
-        {"trigger": "text"},
-        {"trigger": "select"},
-        {"trigger": "multiselect"},
-        {"trigger": "time"},
-
-        // translate
         {"trigger": "comment"},
+        {"trigger": "component"},
+        {"trigger": "dataType"},
+        {"trigger": "filter"},
         {"trigger": "label"},
+        {"trigger": "multiselect"},
+        {"trigger": "number"},
+        {"trigger": "object"},
+        {"trigger": "select"},
+        {"trigger": "sorting"},
+        {"trigger": "string"},
+        {"trigger": "time"},
+        {"trigger": "text"},
         {"trigger": "tooltip"},
+        {"trigger": "url"},
     ]
 }
