@@ -1,0 +1,20 @@
+{
+    "scope": "text.xml string.quoted.double.xml",
+    "completions": [
+        // var types
+        {"trigger": "boolean"},
+        {"trigger": "string"},
+        {"trigger": "number"},
+
+        // field types
+        {"trigger": "text"},
+        {"trigger": "select"},
+        {"trigger": "multiselect"},
+        {"trigger": "time"},
+
+        // translate
+        {"trigger": "comment"},
+        {"trigger": "label"},
+        {"trigger": "tooltip"},
+    ]
+}

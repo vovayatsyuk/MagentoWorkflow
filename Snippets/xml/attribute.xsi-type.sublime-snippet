@@ -1,5 +1,0 @@
-<snippet>
-    <content>xsi:type="${1:string}"</content>
-    <tabTrigger>xsi:type</tabTrigger>
-    <scope>text.xml meta.tag.xml</scope>
-</snippet>
