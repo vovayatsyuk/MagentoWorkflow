@@ -2,11 +2,28 @@
 
 Magento 1 and Magento 2 snippets for Sublime Text 3
 
-## Commands
+## Installation
 
-All commands moved to https://github.com/vovayatsyuk/sublime-magic-templates
+ 1. Run “Package Control: Add Repository” command and add
+    `https://github.com/vovayatsyuk/sublime-magento.git` link.
+ 2. Run “Package Control: Install Package” command, find and install
+    `sublime-magento` plugin.
+
+## Enable completion in xml files
+
+Open Sublime Preferences and add `abcdefghijklmnopqrstuvwxyz` triggers
+for xml files:
+
+```
+"auto_complete_triggers": [
+    {"selector": "text.html", "characters": "<"},
+    {"selector": "text.xml", "characters": "abcdefghijklmnopqrstuvwxyz"}
+],
+```
 
 ## Snippets
+
+### PHP Snippets
 
 #### zd
 
@@ -31,10 +48,3 @@ All commands moved to https://github.com/vovayatsyuk/sublime-magic-templates
 
 Mage::log(${1:__METHOD__}, null, 'custom.log', true);
 ```
-
-## Installation
-
- 1. Run “Package Control: Add Repository” command and add
-    `https://github.com/vovayatsyuk/sublime-magento.git` link.
- 2. Run “Package Control: Install Package” command, find and install
-    `sublime-magento` plugin.
