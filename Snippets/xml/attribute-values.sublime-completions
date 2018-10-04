@@ -9,6 +9,7 @@
         {"trigger": "component"},
         {"trigger": "dataType"},
         {"trigger": "filter"},
+        {"trigger": "helper"},
         {"trigger": "label"},
         {"trigger": "multiselect"},
         {"trigger": "number"},

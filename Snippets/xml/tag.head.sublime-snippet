@@ -1,7 +1,9 @@
 <snippet>
     <content><![CDATA[
-<observer name="$1" instance="$2"/>
+<head>
+    $0
+</head>
 ]]></content>
-    <tabTrigger>observer</tabTrigger>
+    <tabTrigger>head</tabTrigger>
     <scope>text.xml</scope>
 </snippet>
