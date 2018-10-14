@@ -1,0 +1,10 @@
+<snippet>
+    <content><![CDATA[
+<field id="$1" translate="label" type="select" sortOrder="${2:10}" showInDefault="1" showInWebsite="1" showInStore="1">
+    <label>$3</label>
+    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+</field>
+]]></content>
+    <tabTrigger>fieldSelect</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>

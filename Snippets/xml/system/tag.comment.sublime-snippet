@@ -1,0 +1,7 @@
+<snippet>
+    <content><![CDATA[
+<comment>$0</comment>
+]]></content>
+    <tabTrigger>comment</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>

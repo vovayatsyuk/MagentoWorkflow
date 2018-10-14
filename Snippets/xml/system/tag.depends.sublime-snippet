@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[
+<depends>
+    <field id="$1">${2:1}</field>
+</depends>
+]]></content>
+    <tabTrigger>depends</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>
