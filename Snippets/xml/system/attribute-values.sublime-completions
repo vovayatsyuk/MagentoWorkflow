@@ -1,0 +1,14 @@
+{
+    "scope": "text.xml string.quoted.double.xml",
+    "completions": [
+        {"trigger": "allowspecific\tm2:system.xml", "contents": "allowspecific"},
+        {"trigger": "comment\tm2:system.xml", "contents": "comment"},
+        {"trigger": "label\tm2:system.xml", "contents": "label"},
+        {"trigger": "multiselect\tm2:system.xml", "contents": "multiselect"},
+        {"trigger": "select\tm2:system.xml", "contents": "select"},
+        {"trigger": "shared\tm2:system.xml", "contents": "shared"},
+        {"trigger": "text\tm2:system.xml", "contents": "text"},
+        {"trigger": "textarea\tm2:system.xml", "contents": "textarea"},
+        {"trigger": "tooltip\tm2:system.xml", "contents": "tooltip"},
+    ]
+}
