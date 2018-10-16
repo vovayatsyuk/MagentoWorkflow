@@ -4,6 +4,7 @@
     <label>$3</label>
 </field>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>fieldText</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

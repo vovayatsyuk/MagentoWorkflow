@@ -1,9 +1,6 @@
 {
     "scope": "text.xml meta.tag.xml -string.quoted.double.xml",
     "completions": [
-        {"trigger": "after\tm2", "contents": "after=\"${1:-}\""},
-        {"trigger": "before\tm2", "contents": "before=\"${1:-}\""},
-        {"trigger": "helper\tm2", "contents": "helper=\"$1\""},
         {"trigger": "instance\tm2", "contents": "instance=\"$1\""},
         {"trigger": "name\tm2", "contents": "name=\"$1\""},
         {"trigger": "path\tm2", "contents": "path=\"${1:mui/index/render}\""},

@@ -5,6 +5,7 @@
     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 </field>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>fieldSelect</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

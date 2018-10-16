@@ -5,6 +5,7 @@
     $0
 </group>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>group</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

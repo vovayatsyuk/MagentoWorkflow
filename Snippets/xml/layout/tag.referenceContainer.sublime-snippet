@@ -4,6 +4,7 @@
     $0
 </referenceContainer>
 ]]></content>
+    <description>m2:layout</description>
     <tabTrigger>referenceContainer</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

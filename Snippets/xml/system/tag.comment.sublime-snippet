@@ -2,6 +2,7 @@
     <content><![CDATA[
 <comment>$0</comment>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>comment</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

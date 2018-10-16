@@ -4,6 +4,7 @@
     <field id="$1">${2:1}</field>
 </depends>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>depends</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

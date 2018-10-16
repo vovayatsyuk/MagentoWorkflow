@@ -7,6 +7,7 @@
     <resource>${5:Module_Name::config_module}</resource>
 </section>
 ]]></content>
+    <description>m2:system.xml</description>
     <tabTrigger>section</tabTrigger>
     <scope>text.xml</scope>
 </snippet>

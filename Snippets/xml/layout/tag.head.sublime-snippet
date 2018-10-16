@@ -4,6 +4,7 @@
     $0
 </head>
 ]]></content>
+    <description>m2:layout</description>
     <tabTrigger>head</tabTrigger>
     <scope>text.xml</scope>
 </snippet>
