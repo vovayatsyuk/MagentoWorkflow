@@ -1,0 +1,16 @@
+<snippet>
+    <content><![CDATA[
+<field name="$1">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="dataType" xsi:type="string">text</item>
+            <item name="label" xsi:type="string" translate="true">$2</item>
+            <item name="formElement" xsi:type="string">input</item>
+        </item>
+    </argument>
+</field>
+]]></content>
+    <description>m2:ui_component</description>
+    <tabTrigger>fieldText</tabTrigger>
+    <scope>text.xml -string.quoted.double.xml</scope>
+</snippet>
