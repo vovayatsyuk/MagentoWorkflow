@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<css src="${1:Vendor_Module::css/module.css}"/>
-]]></content>
-    <description>m2:layout</description>
-    <tabTrigger>css</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

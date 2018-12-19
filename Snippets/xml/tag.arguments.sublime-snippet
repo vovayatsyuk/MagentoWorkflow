@@ -1,9 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<arguments>
-    $0
-</arguments>
-]]></content>
-    <tabTrigger>arguments</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

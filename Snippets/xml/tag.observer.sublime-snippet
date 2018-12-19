@@ -1,7 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<observer name="$1" instance="$2"/>
-]]></content>
-    <tabTrigger>observer</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

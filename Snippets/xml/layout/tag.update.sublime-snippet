@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<update handle="$1"/>
-]]></content>
-    <description>m2:layout</description>
-    <tabTrigger>update</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

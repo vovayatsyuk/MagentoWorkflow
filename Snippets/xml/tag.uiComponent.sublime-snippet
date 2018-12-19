@@ -1,7 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<uiComponent name="$1"/>
-]]></content>
-    <tabTrigger>uiComponent</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

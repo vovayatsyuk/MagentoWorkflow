@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<item name="less-than-equals-to" xsi:type="number">12</item>
-]]></content>
-    <description>m2:ui_component</description>
-    <tabTrigger>validateGreaterThanZero</tabTrigger>
-    <scope>text.xml -string.quoted.double.xml</scope>
-</snippet>

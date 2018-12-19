@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<include path="${1:Module_Name::system/filename.xml}"/>
-]]></content>
-    <description>m2:system.xml</description>
-    <tabTrigger>include</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

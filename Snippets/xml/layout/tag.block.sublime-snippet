@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<block class="$1" name="$2"/>
-]]></content>
-    <description>m2:layout</description>
-    <tabTrigger>block</tabTrigger>
-    <scope>text.xml</scope>
-</snippet>

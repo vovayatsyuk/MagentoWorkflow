@@ -1,8 +1,0 @@
-{
-    "scope": "text.xml meta.tag.xml -string.quoted.double.xml",
-    "completions": [
-        {"trigger": "after\tm2:layout", "contents": "after=\"${1:-}\""},
-        {"trigger": "before\tm2:layout", "contents": "before=\"${1:-}\""},
-        {"trigger": "helper\tm2:layout", "contents": "helper=\"$1\""},
-    ]
-}

@@ -1,7 +1,0 @@
-<snippet>
-    <content><![CDATA[
-\Magento\Framework\Debug::backtrace();
-]]></content>
-    <tabTrigger>deb</tabTrigger>
-    <scope>source.php</scope>
-</snippet>

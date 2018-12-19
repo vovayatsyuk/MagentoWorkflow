@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-<item name="validate-digits" xsi:type="boolean">true</item>
-]]></content>
-    <description>m2:ui_component</description>
-    <tabTrigger>validateDigits</tabTrigger>
-    <scope>text.xml -string.quoted.double.xml</scope>
-</snippet>
