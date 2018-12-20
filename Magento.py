@@ -1,15 +1,133 @@
+import os
+import re
 import sublime_plugin
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save(self, view):
-        filename = view.file_name() # full path to the file: /Users/username/...
+        self.view = view
+        self.filepath = view.file_name()
+        self.workdir = None
+        self.workdir = self.find_workdir()
+        self.init_package_info()
 
-        # Mapping
-        #   module .less            => pub/static(name.css), var/view_preprocessed(name.less), cache (fpc)
-        #   theme .less             => pub/static(styles.css), var/view_preprocessed(styles?), cache (fpc)
-        #   etc/*.xml               => cache (config, fpc)
-        #   Block.*.php, *.phtml    => cache (block, fpc)
-        #   layout/*.xml            => cache (layout, fpc)
-        #   i18n/*.csv              => cache (translate, fpc)
+        if not self.registration:
+            return
 
-        # view.window().run_command('build')
+        command = ' && '.join(filter(None, [
+            self.module_resources_command(),
+            self.theme_resources_command(),
+            self.cache_command(),
+        ]))
+
+        if not command:
+            return
+
+        self.view.window().run_command('exec', { 'kill': True })
+        self.view.window().run_command('exec', {
+            'shell': True,
+            'quiet': True,
+            'cmd': [command],
+            'working_dir': self.workdir,
+        })
+
+    def module_resources_command(self):
+        match = None
+
+        if self.type is 'module':
+            match = re.search(r'view/(\w+)/web/css/(.*)', self.filepath)
+            area = match.group(1)
+            file = match.group(2)
+            code = self.code
+        else:
+            # maybe it's a module file inside theme?
+            match = re.search(r'(\w+)/web/css/(.*)', self.filepath)
+            if match is None:
+                return
+            area = self.area
+            file = match.group(2)
+            code = match.group(1)
+
+        return self.remove_command([
+            './var/view_preprocessed/pub/static/{}/.*/{}/css/{}'.format(area, code, file),
+            './pub/static/{}/.*/{}/css/.*'.format(area, code),
+        ]);
+
+    def theme_resources_command(self):
+        if self.type is not 'theme':
+            return
+
+        match = re.search(r'web/css/(.*)', self.filepath)
+        if match is None:
+            return
+
+        return self.remove_command([
+            './var/view_preprocessed/pub/static/{}/.*/css/.*styles-.*css'.format(self.area),
+            './var/view_preprocessed/pub/static/{}/.*/css/.*print.*css'.format(self.area),
+            './var/view_preprocessed/pub/static/{}/.*/css/{}'.format(self.area, match.group(1)),
+            './pub/static/{}/.*/css/.*'.format(self.area),
+        ])
+
+    def remove_command(self, paths):
+        commands = []
+        for path in paths:
+            commands.append('find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path))
+        return ' && '.join(commands);
+
+    def cache_command(self):
+        rules = {
+            r'/web/css/': 'fpc',
+            r'/etc/.*\.xml': 'config fpc',
+            r'/Block/.*\.php': 'block fpc',
+            r'/templates/.*\.phtml': 'block fpc',
+            r'/layout/.*\.xml': 'layout block fpc',
+            r'/i18n/.*\.csv': 'translate block fpc',
+        }
+
+        for pattern in rules:
+            if re.findall(pattern, self.filepath):
+                return 'bin/magento cache:clean {}'.format(rules[pattern])
+
+    def init_package_info(self):
+        self.registration = self.find_file('registration.php')
+        if self.registration is None:
+            return
+
+        types = {
+            'module': r'[\'"]((\w+_\w+))[\'"]',
+            'theme':  r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
+        }
+
+        contents = open(self.registration).read()
+        for package_type in types:
+            match = re.search(types[package_type], contents)
+            if match:
+                self.type = package_type
+                self.area = match.group(1)
+                self.code = match.group(2)
+                return
+
+    def find_file(self, filename):
+        if self.workdir is None:
+            min_depth = 5
+        else:
+            min_depth = self.workdir.count('/') + 1
+
+        folders = self.filepath.split(os.sep)
+        folders.pop()
+        folders.append(filename)
+
+        while len(folders) > min_depth:
+            file = os.sep.join(folders)
+            if os.path.isfile(file):
+                return file
+            else:
+                del folders[len(folders) - 2]
+
+    def find_workdir(self):
+        index = self.find_file('index.php')
+        if index:
+            workdir = os.path.dirname(index)
+            if os.path.isfile(os.sep.join([workdir, 'bin/magento'])):
+                return workdir
+
+        return self.view.window().extract_variables().get('folder')
