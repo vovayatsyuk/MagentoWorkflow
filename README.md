@@ -8,9 +8,9 @@ triggers cache invalidation.
 ## Installation
 
  1. Run “Package Control: Add Repository” command and add
-    `https://github.com/vovayatsyuk/sublime-magento.git` link.
+    `https://github.com/vovayatsyuk/sublime-magento-workflow.git` link.
  2. Run “Package Control: Install Package” command, find and install
-    `sublime-magento` plugin.
+    `sublime-magento-workflow` plugin.
 
 ## Snippets
 
