@@ -14,9 +14,9 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             return
 
         command = ' && '.join(filter(None, [
-            self.module_resources_command(),
-            self.theme_resources_command(),
-            self.cache_command(),
+            self.module_resources(),
+            self.theme_resources(),
+            self.cache(),
         ]))
 
         if not command:
@@ -30,7 +30,7 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             'working_dir': self.workdir,
         })
 
-    def module_resources_command(self):
+    def module_resources(self):
         match = None
 
         if self.type is 'module':
@@ -47,12 +47,12 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             file = match.group(2)
             code = match.group(1)
 
-        return self.remove_command([
+        return self.generate_remove_command([
             './var/view_preprocessed/pub/static/{}/.*/{}/css/{}'.format(area, code, file),
             './pub/static/{}/.*/{}/css/.*'.format(area, code),
         ]);
 
-    def theme_resources_command(self):
+    def theme_resources(self):
         if self.type is not 'theme':
             return
 
@@ -60,20 +60,14 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         if match is None:
             return
 
-        return self.remove_command([
+        return self.generate_remove_command([
             './var/view_preprocessed/pub/static/{}/.*/css/.*styles-.*css'.format(self.area),
             './var/view_preprocessed/pub/static/{}/.*/css/.*print.*css'.format(self.area),
             './var/view_preprocessed/pub/static/{}/.*/css/{}'.format(self.area, match.group(1)),
             './pub/static/{}/.*/css/.*'.format(self.area),
         ])
 
-    def remove_command(self, paths):
-        commands = []
-        for path in paths:
-            commands.append('find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path))
-        return ' && '.join(commands);
-
-    def cache_command(self):
+    def cache(self):
         rules = {
             r'/web/css/': 'fpc',
             r'/etc/.*\.xml': 'config fpc',
@@ -86,6 +80,12 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         for pattern in rules:
             if re.findall(pattern, self.filepath):
                 return 'bin/magento cache:clean {}'.format(rules[pattern])
+
+    def generate_remove_command(self, paths):
+        commands = []
+        for path in paths:
+            commands.append('find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path))
+        return ' && '.join(commands);
 
     def init_package_info(self):
         self.registration = self.find_file('registration.php')
