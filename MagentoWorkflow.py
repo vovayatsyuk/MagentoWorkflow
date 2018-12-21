@@ -16,6 +16,7 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         command = ' && '.join(filter(None, [
             self.module_resources(),
             self.theme_resources(),
+            self.generated(),
             self.cache(),
         ]))
 
@@ -65,6 +66,23 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             './var/view_preprocessed/pub/static/{}/.*/css/.*print.*css'.format(self.area),
             './var/view_preprocessed/pub/static/{}/.*/css/{}'.format(self.area, match.group(1)),
             './pub/static/{}/.*/css/.*'.format(self.area),
+        ])
+
+    def generated(self):
+        if '.php' not in self.filepath:
+            return
+
+        match = re.search(r'/vendor/[\w-]+/[\w-]+/(.*)', self.filepath)
+        if not match:
+            match = re.search(r'/app/code/[\w-]+/[\w-]+/(.*)', self.filepath)
+
+        if not match:
+            return
+
+        file = match.group(1)
+
+        return self.generate_remove_command([
+            './generated/code/{}/{}/Interceptor.php'.format(self.code.replace('_', '/'), file.replace('.php', '')),
         ])
 
     def cache(self):
