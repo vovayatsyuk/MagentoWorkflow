@@ -32,10 +32,13 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         })
 
     def module_resources(self):
-        match = None
+        if '/web/css/' not in self.filepath:
+            return
 
         if self.type is 'module':
             match = re.search(r'view/(\w+)/web/css/(.*)', self.filepath)
+            if match is None:
+                return
             area = match.group(1)
             file = match.group(2)
             code = self.code
@@ -54,6 +57,9 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         ]);
 
     def theme_resources(self):
+        if '/web/css/' not in self.filepath:
+            return
+
         if self.type is not 'theme':
             return
 
