@@ -93,12 +93,12 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
 
     def cache(self):
         rules = {
-            r'/web/css/': 'fpc',
-            r'/etc/.*\.xml': 'config fpc',
-            r'/Block/.*\.php': 'block fpc',
-            r'/templates/.*\.phtml': 'block fpc',
-            r'/layout/.*\.xml': 'layout block fpc',
-            r'/i18n/.*\.csv': 'translate block fpc',
+            r'/web/css/': 'full_page',
+            r'/etc/.*\.xml': 'config full_page',
+            r'/Block/.*\.php': 'block_html full_page',
+            r'/templates/.*\.phtml': 'block_html full_page',
+            r'/layout/.*\.xml': 'layout block_html full_page',
+            r'/i18n/.*\.csv': 'translate block_html full_page',
         }
 
         for pattern in rules:
