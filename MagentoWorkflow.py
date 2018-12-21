@@ -3,7 +3,7 @@ import re
 import sublime_plugin
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
-    def on_post_save(self, view):
+    def on_post_save_async(self, view):
         self.view = view
         self.filepath = view.file_name()
         self.workdir = None
