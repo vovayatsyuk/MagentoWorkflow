@@ -6,7 +6,6 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         self.view = view
         self.filepath = view.file_name()
-        self.workdir = None
         self.workdir = self.find_workdir()
         self.init_package_info()
 
@@ -131,16 +130,11 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
                 return
 
     def find_file(self, filename):
-        if self.workdir is None:
-            min_depth = 5
-        else:
-            min_depth = self.workdir.count('/') + 1
-
         folders = self.filepath.split(os.sep)
         folders.pop()
         folders.append(filename)
 
-        while len(folders) > min_depth:
+        while len(folders) > 2:
             file = os.sep.join(folders)
             if os.path.isfile(file):
                 return file
