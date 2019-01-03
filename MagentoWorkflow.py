@@ -15,6 +15,7 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         command = ' && '.join(filter(None, [
             self.module_resources(),
             self.theme_resources(),
+            self.requirejs(),
             self.generated(),
             self.cache(),
         ]))
@@ -73,6 +74,24 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             './pub/static/{}/.*/css/.*'.format(self.area),
         ])
 
+    def requirejs(self):
+        if '/requirejs-config.js' not in self.filepath:
+            return
+
+        if self.type is 'module':
+            match = re.search(r'view/(\w+)/requirejs-config.js', self.filepath)
+            if match is None:
+                return
+            area = match.group(1)
+            code = self.code
+        else:
+            # it's a requirejs file inside theme
+            area = self.area
+
+        return self.generate_remove_command([
+            './pub/static/{}/.*/requirejs-config.js'.format(area),
+        ]);
+
     def generated(self):
         if '.php' not in self.filepath:
             return
@@ -92,6 +111,7 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
 
     def cache(self):
         rules = {
+            r'/requirejs-config\.js': 'full_page',
             r'/web/css/': 'full_page',
             r'/etc/.*\.xml': 'config full_page',
             r'/Block/.*\.php': 'block_html full_page',
