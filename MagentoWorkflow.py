@@ -4,12 +4,7 @@ import sublime_plugin
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
-        self.view = view
-        self.filepath = view.file_name()
-        self.workdir = self.find_workdir()
-        self.init_package_info()
-
-        if not self.registration:
+        if self.init_vars(view) is False:
             return
 
         command = ' && '.join(filter(None, [
@@ -26,10 +21,35 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         self.view.window().run_command('exec', { 'kill': True })
         self.view.window().run_command('exec', {
             'shell': True,
-            'quiet': True,
+            'quiet': False,
             'cmd': [command],
             'working_dir': self.workdir,
         })
+
+    def init_vars(self, view):
+        self.view = view
+        self.filepath = view.file_name()
+        self.workdir = self.find_workdir()
+
+        registration = self.find_file('registration.php')
+        if registration is None:
+            return False
+
+        types = {
+            'module': r'[\'"]((\w+_\w+))[\'"]',
+            'theme':  r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
+        }
+
+        contents = open(registration).read()
+        for package_type in types:
+            match = re.search(types[package_type], contents)
+            if match:
+                self.type = package_type
+                self.area = match.group(1)
+                self.code = match.group(2)
+                return
+
+        return False
 
     def module_resources(self):
         if '/web/css/' not in self.filepath:
@@ -129,25 +149,6 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         for path in paths:
             commands.append('find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path))
         return ' && '.join(commands);
-
-    def init_package_info(self):
-        self.registration = self.find_file('registration.php')
-        if self.registration is None:
-            return
-
-        types = {
-            'module': r'[\'"]((\w+_\w+))[\'"]',
-            'theme':  r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
-        }
-
-        contents = open(self.registration).read()
-        for package_type in types:
-            match = re.search(types[package_type], contents)
-            if match:
-                self.type = package_type
-                self.area = match.group(1)
-                self.code = match.group(2)
-                return
 
     def find_file(self, filename):
         folders = self.filepath.split(os.sep)
