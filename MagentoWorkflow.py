@@ -131,18 +131,21 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
 
     def cache(self):
         rules = {
-            r'/requirejs-config\.js': 'full_page',
-            r'/web/css/': 'full_page',
-            r'/etc/.*\.xml': 'config full_page',
-            r'/Block/.*\.php': 'block_html full_page',
-            r'/templates/.*\.phtml': 'block_html full_page',
-            r'/layout/.*\.xml': 'layout block_html full_page',
-            r'/i18n/.*\.csv': 'translate block_html full_page',
+            r'/etc/.*\.xml': ['config'],
+            r'/Block/.*\.php': ['block_html'],
+            r'/templates/.*\.phtml': ['block_html'],
+            r'/layout/.*\.xml': ['layout', 'block_html'],
+            r'/i18n/.*\.csv': ['translate', 'block_html'],
+            r'.*': ['full_page'],
         }
 
+        types = set()
         for pattern in rules:
             if re.findall(pattern, self.filepath):
-                return 'bin/magento cache:clean {}'.format(rules[pattern])
+                for cache_type in rules[pattern]:
+                    types.add(cache_type)
+
+        return 'bin/magento cache:clean {}'.format(' '.join(types))
 
     def generate_remove_command(self, paths):
         commands = []
