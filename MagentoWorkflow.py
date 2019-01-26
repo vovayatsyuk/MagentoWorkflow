@@ -40,7 +40,7 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
             'theme':  r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
         }
 
-        contents = open(registration).read()
+        contents = open(registration, 'r', encoding='utf-8').read()
         for package_type in types:
             match = re.search(types[package_type], contents)
             if match:
