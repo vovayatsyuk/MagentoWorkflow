@@ -1,9 +1,54 @@
 import os
 import re
+import subprocess
+
+import time
+import sublime
 import sublime_plugin
+
+class MagentoWorkflow:
+    def __init__(self, filepath=None):
+        self.workdir = None
+        self.filepath = None
+
+        if filepath is None:
+            return
+
+        if os.path.isdir(filepath):
+            self.workdir = filepath
+        elif os.path.isfile(filepath):
+            self.filepath = filepath
+            self.workdir = self.find_workdir()
+
+    def cmd(self, command):
+        return subprocess.call(command, shell=True)
+
+    def cleanup(self, filepath):
+        # generate commands? and run with cmd method
+        return
+
+    def find_workdir(self):
+        return 'magento root folder path'
+
+    def closest_file(self, filename):
+        """ Search for the closest file by its filename, relative to the current file.
+        """
+
+        folders = self.filepath.split(os.sep)
+        folders.pop()
+        folders.append(filename)
+
+        while len(folders) > 2:
+            file = os.sep.join(folders)
+            if os.path.isfile(file):
+                return file
+            else:
+                del folders[len(folders) - 2]
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
+        workflow = MagentoWorkflow() # .cleanup(view.file_name())
+
         if self.init_vars(view) is False:
             return
 
@@ -18,13 +63,17 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
         if not command:
             return
 
-        self.view.window().run_command('exec', { 'kill': True })
-        self.view.window().run_command('exec', {
-            'shell': True,
-            'quiet': False,
-            'cmd': [command],
-            'working_dir': self.workdir,
-        })
+        sublime.status_message('MagentoWorkflow is working...')
+
+        start = time.time()
+        result = workflow.cmd(command)
+        end = time.time()
+
+        if result is 0:
+            sublime.status_message('MagentoWorkflow succeded in %d seconds' % (end - start))
+        else:
+            print('MagentoWorkflow failed to execute: "%s"' % command)
+            sublime.status_message('MagentoWorkflow error. See more information in console')
 
     def init_vars(self, view):
         self.view = view
