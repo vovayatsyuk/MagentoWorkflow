@@ -7,6 +7,27 @@ import sublime
 import sublime_plugin
 
 class MagentoWorkflow:
+
+    module_resources = [
+        './var/view_preprocessed/pub/static/{area}/.*/{module}/css/{file}',
+        './pub/static/{area}/.*/{module}/css/.*',
+    ]
+
+    theme_resources = [
+        './var/view_preprocessed/pub/static/{area}/.*/css/.*styles-.*css',
+        './var/view_preprocessed/pub/static/{area}/.*/css/.*print.*css',
+        './var/view_preprocessed/pub/static/{area}/.*/css/{file}',
+        './pub/static/{area}/.*/css/.*',
+    ]
+
+    requirejs_resources = [
+        './pub/static/{area}/.*/requirejs-config.js',
+    ]
+
+    generated_resources = [
+        './generated/code/{module}/{file}/Interceptor.php',
+    ]
+
     def __init__(self, filepath=None):
         self.workdir = None
         self.filepath = None
@@ -24,8 +45,16 @@ class MagentoWorkflow:
         return subprocess.call(command, shell=True)
 
     def cleanup(self, filepath):
-        # generate commands? and run with cmd method
-        return
+        source_type = self.get_source_type(filepath)
+        method_name = 'cleanup_' + str(source_type)
+        method = getattr(self, method_name)
+        return method(filepath)
+
+    def get_source_type(self, filepath):
+        return 'module'
+
+    def cleanup_module(self, filepath):
+        print('hello')
 
     def find_workdir(self):
         return 'magento root folder path'
@@ -47,7 +76,9 @@ class MagentoWorkflow:
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
-        workflow = MagentoWorkflow() # .cleanup(view.file_name())
+        MagentoWorkflow().cleanup(view.file_name())
+        return
+        # workflow = MagentoWorkflow()
 
         if self.init_vars(view) is False:
             return
@@ -67,10 +98,10 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
 
         start = time.time()
         result = workflow.cmd(command)
-        end = time.time()
+        elapsed = time.time() - start;
 
         if result is 0:
-            sublime.status_message('MagentoWorkflow succeded in %d seconds' % (end - start))
+            sublime.status_message('MagentoWorkflow succeded in %.2f seconds' % elapsed)
         else:
             print('MagentoWorkflow failed to execute: "%s"' % command)
             sublime.status_message('MagentoWorkflow error. See more information in console')
