@@ -35,32 +35,66 @@ class MagentoWorkflow:
         if filepath is None:
             return
 
+        self.init_vars(filepath)
+
+    def init_vars(self, filepath):
         if os.path.isdir(filepath):
             self.workdir = filepath
         elif os.path.isfile(filepath):
             self.filepath = filepath
-            self.workdir = self.find_workdir()
+            # self.workdir = self.find_workdir()
 
     def cmd(self, command):
         return subprocess.call(command, shell=True)
 
-    def cleanup(self, filepath):
-        source_type = self.get_source_type(filepath)
-        method_name = 'cleanup_' + str(source_type)
-        method = getattr(self, method_name)
-        return method(filepath)
+    def cleanup(self, filepath=None):
+        if filepath is None:
+            filepath = self.filepath
+        else:
+            self.init_vars(filepath)
 
-    def get_source_type(self, filepath):
-        return 'module'
+        if self.filepath is None:
+            return
+
+        package = self.get_package_info()
+        if package is None:
+            return
+
+        return getattr(self, 'cleanup_' + package['type'])(filepath)
+
+    def get_package_info(self):
+        registration = self.closest_file('registration.php')
+        if registration is None:
+            return None
+
+        types = {
+            'module': r'[\'"]((\w+_\w+))[\'"]',
+            'theme':  r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
+        }
+
+        contents = open(registration, 'r', encoding='utf-8').read()
+        for package_type in types:
+            match = re.search(types[package_type], contents)
+            if match:
+                return {
+                    'type': package_type,
+                    'area': match.group(1), # this value is correct for theme only
+                    'code': match.group(2),
+                }
+
+        return None
 
     def cleanup_module(self, filepath):
-        print('hello')
+        print('module')
+
+    def cleanup_theme(self, filepath):
+        print('theme')
 
     def find_workdir(self):
         return 'magento root folder path'
 
     def closest_file(self, filename):
-        """ Search for the closest file by its filename, relative to the current file.
+        """ Search for file by filename, closest to the currently opened file.
         """
 
         folders = self.filepath.split(os.sep)
