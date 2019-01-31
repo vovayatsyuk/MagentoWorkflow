@@ -42,6 +42,7 @@ class MagentoWorkflow:
             self.workdir = filepath
         elif os.path.isfile(filepath):
             self.filepath = filepath
+            self.package = self.get_package_info()
             # self.workdir = self.find_workdir()
 
     def cmd(self, command):
@@ -53,14 +54,21 @@ class MagentoWorkflow:
         else:
             self.init_vars(filepath)
 
-        if self.filepath is None:
+        if self.filepath is None or self.package is None:
             return
 
-        package = self.get_package_info()
-        if package is None:
-            return
+        self.result = {
+            'success': False,
+            'elapsed': 0
+        }
 
-        return getattr(self, 'cleanup_' + package['type'])(filepath)
+        start = time.time()
+        getattr(self, 'cleanup_' + self.package['type'])(filepath)
+
+        self.result = {
+            'success': True,
+            'elapsed': time.time() - start
+        }
 
     def get_package_info(self):
         registration = self.closest_file('registration.php')
@@ -79,16 +87,33 @@ class MagentoWorkflow:
                 return {
                     'type': package_type,
                     'area': match.group(1), # this value is correct for theme only
-                    'code': match.group(2),
+                    'module': match.group(2),
                 }
 
         return None
 
     def cleanup_module(self, filepath):
-        print('module')
+        match = re.search(r'view/(\w+)/web/css/(.*)', filepath)
+        if match:
+            area = match.group(1)
+            file = match.group(2)
+            patterns = []
+            for resource in self.module_resources:
+                patterns.append(resource.format(**{
+                    'area': area,
+                    'module': self.package['module'],
+                    'file': file,
+                }))
+            self.remove_resources(patterns)
 
     def cleanup_theme(self, filepath):
         print('theme')
+
+    def remove_resources(self, patterns):
+        commands = []
+        for path in patterns:
+            commands.append('find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path))
+        return self.cmd(' && '.join(commands));
 
     def find_workdir(self):
         return 'magento root folder path'
@@ -110,34 +135,20 @@ class MagentoWorkflow:
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
-        MagentoWorkflow().cleanup(view.file_name())
-        return
-        # workflow = MagentoWorkflow()
-
-        if self.init_vars(view) is False:
-            return
-
-        command = ' && '.join(filter(None, [
-            self.module_resources(),
-            self.theme_resources(),
-            self.requirejs(),
-            self.generated(),
-            self.cache(),
-        ]))
-
-        if not command:
+        workflow = MagentoWorkflow(view.file_name())
+        if workflow.package is None:
             return
 
         sublime.status_message('MagentoWorkflow is working...')
 
         start = time.time()
-        result = workflow.cmd(command)
+        workflow.cleanup()
         elapsed = time.time() - start;
 
-        if result is 0:
-            sublime.status_message('MagentoWorkflow succeded in %.2f seconds' % elapsed)
+        if workflow.result['success'] is True:
+            sublime.status_message('MagentoWorkflow succeded in %.2f seconds' % workflow.result['elapsed'])
         else:
-            print('MagentoWorkflow failed to execute: "%s"' % command)
+            # print('MagentoWorkflow failed to execute: "%s"' % workflow.result.command)
             sublime.status_message('MagentoWorkflow error. See more information in console')
 
     def init_vars(self, view):
