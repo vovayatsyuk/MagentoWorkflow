@@ -44,13 +44,29 @@ class Resources:
         return patterns
 
     def get_module_patterns(self):
-        match = re.search(r'view/(\w+)/web/css/(.*)', self.app.filepath)
-        if match is None:
+        if '/web/css/' not in self.app.filepath:
             return []
+
+        if self.app.package.type is 'module':
+            match = re.search(r'view/(\w+)/web/css/(.*)', self.app.filepath)
+            if match is None:
+                return []
+            area = match.group(1)
+            module = self.app.package.module
+            file = match.group(2)
+        else:
+            # maybe it's a module file inside theme?
+            match = re.search(r'(\w+)/web/css/(.*)', self.app.filepath)
+            if match is None:
+                return []
+            area = self.app.package.area
+            module = match.group(1)
+            file = match.group(2)
+
         return self.render_patterns(self.module_resources, {
-            'area': match.group(1),
-            'module': self.app.package.module,
-            'file': match.group(2),
+            'area': area,
+            'module': module,
+            'file': file,
         })
 
     def get_requirejs_patterns(self):
