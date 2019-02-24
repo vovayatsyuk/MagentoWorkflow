@@ -22,5 +22,15 @@ class App:
         self.cache.clean()
         self.timer.end()
 
+    def clear_cache(self):
+        self.timer.start()
+        self.cache.clean()
+        self.timer.end()
+
+    def flush_cache(self):
+        self.timer.start()
+        self.cache.flush()
+        self.timer.end()
+
     def elapsed(self):
         return self.timer.time()

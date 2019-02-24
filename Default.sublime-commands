@@ -1,0 +1,10 @@
+[
+    {
+        "caption": "MagentoWorkflow: Clear Cache",
+        "command": "clear_cache"
+    },
+    {
+        "caption": "MagentoWorkflow: Flush Cache",
+        "command": "flush_cache"
+    }
+]
