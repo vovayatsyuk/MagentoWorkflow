@@ -77,12 +77,22 @@ class Resources:
         return result
 
     def get_requirejs_patterns(self):
-        match = re.search(r'view/(\w+)/requirejs-config.js', self.app.filepath)
-        if match is None:
+        if '/requirejs-config.js' not in self.app.filepath:
             return []
+
+        if self.app.package.type is 'module':
+            match = re.search(
+                r'view/(\w+)/requirejs-config.js',
+                self.app.filepath
+            )
+            if match is None:
+                return []
+            area = match.group(1)
+        else:
+            area = self.app.package.area
+
         return self.render_patterns(self.requirejs_resources, {
-            'area': match.group(1),
-            'module': self.app.package.module
+            'area': area,
         })
 
     def get_generated_patterns(self):
