@@ -2,12 +2,12 @@ import re
 
 
 class Resources:
-    module_resources = [
+    css_module_resources = [
         './var/view_preprocessed/pub/static/{area}/.*/{module}/css/{file}',
         './pub/static/{area}/.*/{module}/css/.*',
     ]
 
-    theme_resources = [
+    css_theme_resources = [
         './var/view_preprocessed/pub/static/{area}/.*/css/.*styles-.*css',
         './var/view_preprocessed/pub/static/{area}/.*/css/.*print.*css',
         './var/view_preprocessed/pub/static/{area}/.*/css/{file}',
@@ -38,12 +38,12 @@ class Resources:
 
     def get_patterns(self):
         patterns = []
-        patterns.extend(self.get_module_patterns())
+        patterns.extend(self.get_css_patterns())
         patterns.extend(self.get_requirejs_patterns())
         patterns.extend(self.get_generated_patterns())
         return patterns
 
-    def get_module_patterns(self):
+    def get_css_patterns(self):
         if '/web/css/' not in self.app.filepath:
             return []
 
@@ -53,21 +53,28 @@ class Resources:
                 return []
             area = match.group(1)
             module = self.app.package.module
-            file = match.group(2)
         else:
-            # maybe it's a module file inside theme?
             match = re.search(r'(\w+)/web/css/(.*)', self.app.filepath)
             if match is None:
                 return []
             area = self.app.package.area
             module = match.group(1)
-            file = match.group(2)
 
-        return self.render_patterns(self.module_resources, {
+        file = match.group(2)
+        result = self.render_patterns(self.css_module_resources, {
             'area': area,
             'module': module,
             'file': file,
         })
+
+        if self.app.package.type is 'theme':
+            result.extend(self.render_patterns(self.css_theme_resources, {
+                'area': area,
+                'module': module,
+                'file': file,
+            }))
+
+        return result
 
     def get_requirejs_patterns(self):
         match = re.search(r'view/(\w+)/requirejs-config.js', self.app.filepath)
