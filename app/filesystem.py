@@ -18,4 +18,4 @@ def closest(name, path, directory=False):
             else:
                 return file
         else:
-            del folders[len(folders) - 2]
+            del folders[-1]
