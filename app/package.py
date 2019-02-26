@@ -9,6 +9,9 @@ class Package:
         self.area = None
         self.module = None
 
+        if filepath is None:
+            return
+
         registration = closest('registration.php', filepath)
         if registration is None:
             return

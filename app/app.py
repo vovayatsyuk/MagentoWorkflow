@@ -17,7 +17,9 @@ class App:
         self.cache = Cache(self)
 
     def find_workdir(self, fallback=None):
-        workdir = closest('bin/magento', self.filepath, True)
+        workdir = None
+        if self.filepath:
+            workdir = closest('bin/magento', self.filepath, True)
         if fallback and workdir is None:
             workdir = closest('bin/magento', fallback, True)
         return workdir
