@@ -5,6 +5,13 @@ from subprocess import CalledProcessError
 from .app.app import App
 
 
+def get_app(view):
+    return App(
+        view.file_name(),
+        view.window().extract_variables().get('folder')
+    )
+
+
 def run(object, command, args=None):
     sublime.status_message('MagentoWorkflow is working...')
 
@@ -32,14 +39,14 @@ def run(object, command, args=None):
 
 class ClearCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        app = App(self.view.file_name())
+        app = get_app(self.view)
         if app.workdir:
             run(app, 'clear_cache')
 
 
 class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        self.app = App(self.view.file_name())
+        self.app = get_app(self.view)
         if self.app.workdir is None:
             return
         sublime.active_window().show_quick_panel(
@@ -56,7 +63,7 @@ class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
 
 class FlushCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        app = App(self.view.file_name())
+        app = get_app(self.view)
         if app.workdir:
             run(app, 'flush_cache')
 

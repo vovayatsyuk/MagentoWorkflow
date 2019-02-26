@@ -7,9 +7,11 @@ from .filesystem import *
 
 
 class App:
-    def __init__(self, filepath):
+    def __init__(self, filepath, workdir=None):
         self.filepath = filepath
         self.workdir = closest('index.php', filepath, True)
+        if workdir and self.workdir is None:
+            self.workdir = closest('index.php', workdir, True)
         self.timer = Timer()
         self.package = Package(self.filepath)
         self.terminal = Terminal(self.workdir)

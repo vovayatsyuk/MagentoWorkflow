@@ -9,7 +9,7 @@ class Terminal:
         if self.workdir is None:
             return
 
-        print(cmd)
+        print('[MagentoWorkflow] {}'.format(cmd))
 
         return subprocess.check_output(
             cmd,
