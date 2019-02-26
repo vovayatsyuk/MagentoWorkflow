@@ -14,7 +14,7 @@ def closest(name, path, directory=False):
         file = os.sep.join(folders)
         if os.path.isfile(file):
             if directory is True:
-                return os.path.dirname(file)
+                return file.replace(name, '')
             else:
                 return file
         else:
