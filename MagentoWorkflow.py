@@ -5,12 +5,15 @@ from subprocess import CalledProcessError
 from .app.app import App
 
 
-def run(object, command):
+def run(object, command, args=None):
     sublime.status_message('MagentoWorkflow is working...')
 
     try:
         func = getattr(object, command)
-        result = func()
+        if args:
+            result = func(*args)
+        else:
+            result = func()
         sublime.status_message(
             'MagentoWorkflow succeded in %.2f seconds'
             % object.elapsed()
@@ -32,6 +35,23 @@ class ClearCacheCommand(sublime_plugin.TextCommand):
         app = App(self.view.file_name())
         if app.workdir:
             run(app, 'clear_cache')
+
+
+class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.app = App(self.view.file_name())
+        if self.app.workdir is None:
+            return
+        sublime.active_window().show_quick_panel(
+            self.app.cache.type(),
+            self.on_done,
+            sublime.KEEP_OPEN_ON_FOCUS_LOST
+        )
+
+    def on_done(self, index):
+        if index == -1:
+            return
+        run(self.app, 'clear_cache', [self.app.cache.type(index)])
 
 
 class FlushCacheCommand(sublime_plugin.TextCommand):

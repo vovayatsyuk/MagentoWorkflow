@@ -22,9 +22,9 @@ class App:
         self.cache.clean()
         self.timer.end()
 
-    def clear_cache(self):
+    def clear_cache(self, type=None):
         self.timer.start()
-        self.cache.clean()
+        self.cache.clean(type)
         self.timer.end()
 
     def flush_cache(self):

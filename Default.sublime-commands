@@ -4,6 +4,10 @@
         "command": "clear_cache"
     },
     {
+        "caption": "MagentoWorkflow: Clear Selected Cache",
+        "command": "clear_selected_cache"
+    },
+    {
         "caption": "MagentoWorkflow: Flush Cache",
         "command": "flush_cache"
     }

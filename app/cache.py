@@ -10,7 +10,7 @@ class Cache:
 
     def clean(self, type=None):
         if type is None:
-            type = self.get_types()
+            type = self.get_types_to_clean()
 
         if type is 'All':
             cmd = 'bin/magento cache:clean'
@@ -21,7 +21,7 @@ class Cache:
 
         return self.app.terminal.run(cmd)
 
-    def get_types(self):
+    def get_types_to_clean(self):
         rules = {
             r'/etc/.*\.xml': ['config'],
             r'/Block/.*\.php': ['block_html'],
@@ -38,3 +38,18 @@ class Cache:
                     types.add(cache_type)
 
         return types
+
+    def type(self, index=False):
+        types = [
+            'block_html',
+            'config',
+            'db_ddl',
+            'full_page',
+            'layout',
+            'translate',
+        ]
+
+        if index is not False:
+            return types[index]
+
+        return list(types)
