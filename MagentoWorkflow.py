@@ -3,6 +3,7 @@ import sublime_plugin
 
 from subprocess import CalledProcessError
 from .app.app import App
+from .app.progress import Progress
 
 
 def get_app(view):
@@ -13,7 +14,7 @@ def get_app(view):
 
 
 def run(object, command, args=None):
-    sublime.status_message('MagentoWorkflow is working...')
+    progress = Progress('MagentoWorkflow is working')
 
     try:
         func = getattr(object, command)
@@ -21,7 +22,7 @@ def run(object, command, args=None):
             result = func(*args)
         else:
             result = func()
-        sublime.status_message(
+        progress.stop(
             'MagentoWorkflow succeded in %.2f seconds'
             % object.elapsed()
         )
@@ -30,7 +31,7 @@ def run(object, command, args=None):
             'MagentoWorkflow failed to execute: "%s"'
             % err.output
         )
-        sublime.status_message(
+        progress.stop(
             'MagentoWorkflow error. See more information in console'
         )
 
