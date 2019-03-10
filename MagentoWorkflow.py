@@ -1,9 +1,9 @@
 import sublime
 import sublime_plugin
 
-from subprocess import CalledProcessError
 from .app.app import App
-from .app.progress import Progress
+from .app.thread_wrapper import ThreadWrapper
+from .app.thread_progress import ThreadProgress
 
 
 def get_app(view):
@@ -13,29 +13,15 @@ def get_app(view):
     )
 
 
-def run(object, command, args=None):
-    progress = Progress('MagentoWorkflow is working')
-
-    try:
-        func = getattr(object, command)
-        if args:
-            result = func(*args)
-        else:
-            result = func()
-        progress.stop(
-            'MagentoWorkflow succeded in %.2f seconds'
-            % object.elapsed()
-        )
-    except CalledProcessError as err:
-        print(
-            'MagentoWorkflow failed to execute: "%s"'
-            % err.output
-        )
-        progress.stop(
-            'MagentoWorkflow error. See more information in console'
-        )
-
-    return result
+def run(object, method, args=None):
+    thread = ThreadWrapper(object, method, args=None)
+    thread.start()
+    ThreadProgress(
+        thread,
+        'MagentoWorkflow is working',
+        'MagentoWorkflow succeded in %.2f seconds'
+    )
+    # 'MagentoWorkflow error. See more information in console'
 
 
 class ClearCacheCommand(sublime_plugin.TextCommand):
