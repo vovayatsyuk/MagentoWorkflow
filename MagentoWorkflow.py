@@ -19,9 +19,9 @@ def run(object, method, args=None):
     ThreadProgress(
         thread,
         'MagentoWorkflow is working',
-        'MagentoWorkflow succeded in %.2f seconds'
+        'MagentoWorkflow succeded in %.2f seconds',
+        'MagentoWorkflow error. See more information in console'
     )
-    # 'MagentoWorkflow error. See more information in console'
 
 
 class ClearCacheCommand(sublime_plugin.TextCommand):

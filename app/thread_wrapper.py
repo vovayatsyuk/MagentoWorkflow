@@ -11,6 +11,7 @@ class ThreadWrapper(Thread):
         self.object = object
         self.method = method
         self.args = args
+        self.result = False
 
     def run(self):
         self.timer.start()
@@ -20,6 +21,7 @@ class ThreadWrapper(Thread):
                 func(*self.args)
             else:
                 func()
+            self.result = True
         except CalledProcessError as err:
             print(
                 'MagentoWorkflow failed to execute: "%s"'

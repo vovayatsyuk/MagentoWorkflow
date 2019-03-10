@@ -10,10 +10,11 @@ class ThreadProgress:
         https://github.com/wbond/package_control/blob/master/package_control/thread_progress.py
     """
 
-    def __init__(self, thread, message, success_message):
+    def __init__(self, thread, message, success_message, error_message):
         self.thread = thread
         self.message = message
         self.success_message = success_message
+        self.error_message = error_message
         self.addend = 1
         self.size = 8
         self.last_view = None
@@ -23,11 +24,10 @@ class ThreadProgress:
     def run(self, i):
         if not self.thread.is_alive():
             if hasattr(self.thread, 'result') and not self.thread.result:
-                return
-            sublime.status_message(
+                return sublime.status_message(self.error_message)
+            return sublime.status_message(
                 self.success_message % self.thread.elapsed()
             )
-            return
 
         before = i % self.size
         after = (self.size - 1) - before
