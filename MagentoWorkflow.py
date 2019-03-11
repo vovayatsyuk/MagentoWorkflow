@@ -23,7 +23,7 @@ class ClearCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         app = get_app(self.view)
         if app.workdir:
-            run(app, 'clear_cache')
+            run(app, 'clear_cache', ['All'])
 
 
 class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
