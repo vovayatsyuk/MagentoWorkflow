@@ -36,6 +36,40 @@ class Resources:
             )
         self.app.terminal.run(' && '.join(commands))
 
+    def get_module_patterns(self, code):
+        patterns = []
+        resources = [
+            self.css_module_resources,
+            self.requirejs_resources,
+        ]
+        for resource in resources:
+            for area in ['frontend', 'adminhtml']:
+                patterns.extend(self.render_patterns(resource, {
+                    'area': area,
+                    'module': code,
+                    'file': '.*',
+                }))
+        patterns.extend(self.render_patterns(self.generated_resources, {
+            'module': code,
+            'file': '.*',
+        }))
+        return patterns
+
+    def get_theme_patterns(self, code):
+        patterns = []
+        resources = [
+            self.css_theme_resources,
+            self.requirejs_resources,
+        ]
+        for resource in resources:
+            for area in ['frontend', 'adminhtml']:
+                patterns.extend(self.render_patterns(resource, {
+                    'area': area,
+                    'module': code,
+                    'file': '.*',
+                }))
+        return patterns
+
     def get_patterns(self):
         patterns = []
         patterns.extend(self.get_css_patterns())

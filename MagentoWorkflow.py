@@ -51,6 +51,50 @@ class FlushCacheCommand(sublime_plugin.TextCommand):
             run(app, 'flush_cache')
 
 
+class CleanupModuleCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.app = get_app(self.view)
+
+        initial_value = 'Magento_Catalog'
+        if self.app.package.type is 'module':
+            initial_value = self.app.package.module
+
+        sublime.active_window().show_input_panel(
+            'Enter module name',
+            initial_value,
+            self.on_done,
+            None,
+            None
+        )
+
+    def on_done(self, module):
+        self.app.package.type = 'module'
+        self.app.package.module = module
+        run(self.app, 'cleanup_module', [module])
+
+
+class CleanupThemeCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.app = get_app(self.view)
+
+        initial_value = 'Magento/luma'
+        if self.app.package.type is 'theme':
+            initial_value = self.app.package.module
+
+        sublime.active_window().show_input_panel(
+            'Enter theme name',
+            initial_value,
+            self.on_done,
+            None,
+            None
+        )
+
+    def on_done(self, theme):
+        self.app.package.type = 'theme'
+        self.app.package.module = theme
+        run(self.app, 'cleanup_theme', [theme])
+
+
 class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         app = App(view.file_name())
