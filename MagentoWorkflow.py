@@ -16,12 +16,7 @@ def get_app(view):
 def run(object, method, args=None):
     thread = ThreadWrapper(object, method, args)
     thread.start()
-    ThreadProgress(
-        thread,
-        'MagentoWorkflow is working',
-        'MagentoWorkflow succeded in %.2f seconds',
-        'MagentoWorkflow error. See more information in console'
-    )
+    ThreadProgress(thread)
 
 
 class ClearCacheCommand(sublime_plugin.TextCommand):

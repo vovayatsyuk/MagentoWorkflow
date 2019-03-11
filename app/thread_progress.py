@@ -10,11 +10,11 @@ class ThreadProgress:
         https://github.com/wbond/package_control/blob/master/package_control/thread_progress.py
     """
 
-    def __init__(self, thread, message, success_message, error_message):
+    def __init__(self, thread):
+        self.message = 'MagentoWorkflow is working'
+        self.success_message = 'MagentoWorkflow succeded in %.2f seconds'
+        self.error_message = 'MagentoWorkflow errored'
         self.thread = thread
-        self.message = message
-        self.success_message = success_message
-        self.error_message = error_message
         self.addend = 1
         self.size = 8
         self.last_view = None
