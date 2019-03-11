@@ -14,7 +14,7 @@ def get_app(view):
 
 
 def run(object, method, args=None):
-    thread = ThreadWrapper(object, method, args=None)
+    thread = ThreadWrapper(object, method, args)
     thread.start()
     ThreadProgress(
         thread,
