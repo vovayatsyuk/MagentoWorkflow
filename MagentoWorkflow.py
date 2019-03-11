@@ -40,7 +40,7 @@ class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
     def on_done(self, index):
         if index == -1:
             return
-        run(self.app, 'clear_cache', [self.app.cache.type(index)])
+        run(self.app, 'clear_cache', [[self.app.cache.type(index), 'full_page']])
 
 
 class FlushCacheCommand(sublime_plugin.TextCommand):

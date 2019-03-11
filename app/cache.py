@@ -14,7 +14,7 @@ class Cache:
 
         if type is 'All':
             cmd = 'bin/magento cache:clean'
-        elif isinstance(type, set):
+        elif isinstance(type, list):
             cmd = 'bin/magento cache:clean {}'.format(' '.join(type))
         else:
             cmd = 'bin/magento cache:clean {}'.format(type)
