@@ -50,7 +50,7 @@ class Resources:
                     'file': '.*',
                 }))
         patterns.extend(self.render_patterns(self.generated_resources, {
-            'module': code,
+            'module': code.replace('_', '/'),
             'file': '.*',
         }))
         return patterns
