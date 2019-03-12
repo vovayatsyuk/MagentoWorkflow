@@ -1,7 +1,8 @@
 # MagentoWorkflow
 
 Magento 2 workflow without the hassle. Do the work with enabled cache to gain
-maximum performance! Forget about generated code and static content!
+maximum performance! Forget about cache refreshes, php errors because of
+updated constructor arguments, and outdated static content!
 MagentoWorkflow plugin automatically cleanup appropriate generated files and
 triggers cache invalidation.
 
@@ -14,30 +15,18 @@ triggers cache invalidation.
  2. Run “Package Control: Install Package” command, find and install
     `sublime-magento-workflow` plugin.
 
-## Configuration
-
-Disable `show_panel_on_build` option to prevent report panel to be shown on
-each save. Go to _Preferences > Settings_ and add the following option:
-
-```json
-{
-    "show_panel_on_build": false
-}
-```
-
 ## How it Works
 
-There is a mapping between saved filepath and commands to execute:
+When you save the file, MagentoWorkflow automatically cleanup appropriate
+generated files.
 
-Filepath                | Reaction
-------------------------|-------------------
-`/web/css/(.*)`         | Cleans up corresponsing files in `var/view_preprocessed` and `pub/static` folders. Cleans `full_page` cache.
-`*.php`                 | Cleans up corresponsing files in `generated/code` folder.
-`/etc/.*\.xml`          | Cleans `full_page` cache.
-`/Block/.*\.php`        | Cleans `block_html full_page` caches.
-`/templates/.*\.phtml`  | Cleans `block_html full_page` caches.
-`/layout/.*\.xml`       | Cleans `layout block_html full_page` caches.
-`/i18n/.*\.csv`         | Cleans `translate block_html full_page` caches.
+A message will be shown in the status bar:
+
+![Status bar message](docs/assets/images/status-bar.gif)
+
+## Commands
+
+![Status bar message](docs/assets/images/commands.png)
 
 ## Snippets
 
