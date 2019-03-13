@@ -88,24 +88,30 @@ class Resources:
             area = match.group(1)
             module = self.app.package.module
         else:
-            match = re.search(r'(\w+)/web/css/(.*)', self.app.filepath)
-            if match is None:
-                return []
-            area = self.app.package.area
-            module = match.group(1)
+            # module file inside a theme?
+            match = re.search(
+                self.app.package.module + r'/(\w+)/web/css/(.*)',
+                self.app.filepath
+            )
+            if match:
+                area = self.app.package.area
+                module = match.group(1)
 
-        file = match.group(2)
-        result = self.render_patterns(self.css_module_resources, {
-            'area': area,
-            'module': module,
-            'file': file,
-        })
-
-        if self.app.package.type is 'theme':
-            result.extend(self.render_patterns(self.css_theme_resources, {
+        result = []
+        if match:
+            file = match.group(2)
+            result.extend(self.render_patterns(self.css_module_resources, {
                 'area': area,
                 'module': module,
                 'file': file,
+            }))
+
+        if self.app.package.type is 'theme':
+            match = re.search(r'(\w+)/web/css/(.*)', self.app.filepath)
+            result.extend(self.render_patterns(self.css_theme_resources, {
+                'area': self.app.package.area,
+                'module': self.app.package.module,
+                'file': match.group(2),
             }))
 
         return result
