@@ -11,7 +11,7 @@ class Resources:
         './var/view_preprocessed/pub/static/{area}/.*/css/.*styles-.*css',
         './var/view_preprocessed/pub/static/{area}/.*/css/.*print.*css',
         './var/view_preprocessed/pub/static/{area}/.*/css/{file}',
-        './pub/static/{area}/.*/css/.*',
+        './pub/static/{area}/.*/[a-z]*_[A-Z]*/css/.*',
     ]
 
     requirejs_resources = [
