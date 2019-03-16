@@ -34,7 +34,9 @@ class Resources:
             commands.append(
                 'find . -type f -regex "{}" -exec rm -rf {{}} \\;'.format(path)
             )
-        self.app.terminal.run(' && '.join(commands))
+
+        if commands:
+            self.app.terminal.run(' && '.join(commands))
 
     def get_module_patterns(self, code):
         patterns = []

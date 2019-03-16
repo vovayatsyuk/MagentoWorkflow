@@ -11,6 +11,8 @@ class Cache:
     def clean(self, type=None):
         if type is None:
             type = self.get_types_to_clean()
+            if len(type) == 0:
+                return
 
         if type is 'All':
             cmd = 'bin/magento cache:clean'
@@ -28,7 +30,9 @@ class Cache:
             r'/templates/.*\.phtml': ['block_html'],
             r'/layout/.*\.xml': ['layout', 'block_html'],
             r'/i18n/.*\.csv': ['translate', 'block_html'],
-            r'.*': ['full_page'],
+            r'\.(php|xml|json)': ['full_page'],
+            r'/web/css/': ['full_page'],
+            r'/requirejs-config\.js': ['full_page'],
         }
 
         types = set()
@@ -36,6 +40,9 @@ class Cache:
             if re.findall(pattern, self.app.filepath):
                 for cache_type in rules[pattern]:
                     types.add(cache_type)
+
+        if len(types) > 0:
+            types.add('full_page')
 
         return types
 
