@@ -7,7 +7,7 @@ class Package:
     def __init__(self, filepath):
         self.type = None
         self.area = None
-        self.module = None
+        self.code = None
 
         if filepath is None:
             return
@@ -28,4 +28,4 @@ class Package:
                 self.type = package_type
                 # this value is correct for theme only
                 self.area = match.group(1)
-                self.module = match.group(2)
+                self.code = match.group(2)

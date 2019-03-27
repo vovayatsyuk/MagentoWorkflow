@@ -22,17 +22,9 @@ class App:
             workdir = closest('bin/magento', fallback, True)
         return workdir
 
-    def cleanup(self):
-        self.resources.remove()
-        self.cache.clean()
-
-    def cleanup_module(self, code=None):
-        self.resources.remove(self.resources.get_module_patterns(code))
-        self.cache.clean('All')
-
-    def cleanup_theme(self, code=None):
-        self.resources.remove(self.resources.get_theme_patterns(code))
-        self.cache.clean('All')
+    def cleanup(self, code=None):
+        self.resources.remove(code)
+        self.cache.clean('All' if code else None)
 
     def clear_cache(self, type=None):
         self.cache.clean(type)

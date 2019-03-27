@@ -57,7 +57,7 @@ class CleanupModuleCommand(sublime_plugin.TextCommand):
 
         initial_value = 'Magento_Catalog'
         if self.app.package.type is 'module':
-            initial_value = self.app.package.module
+            initial_value = self.app.package.code
 
         sublime.active_window().show_input_panel(
             'Enter module name',
@@ -69,8 +69,8 @@ class CleanupModuleCommand(sublime_plugin.TextCommand):
 
     def on_done(self, module):
         self.app.package.type = 'module'
-        self.app.package.module = module
-        run(self.app, 'cleanup_module', [module])
+        self.app.package.code = module
+        run(self.app, 'cleanup', [module])
 
 
 class CleanupThemeCommand(sublime_plugin.TextCommand):
@@ -79,7 +79,7 @@ class CleanupThemeCommand(sublime_plugin.TextCommand):
 
         initial_value = 'Magento/luma'
         if self.app.package.type is 'theme':
-            initial_value = self.app.package.module
+            initial_value = self.app.package.code
 
         sublime.active_window().show_input_panel(
             'Enter theme name',
@@ -91,8 +91,8 @@ class CleanupThemeCommand(sublime_plugin.TextCommand):
 
     def on_done(self, theme):
         self.app.package.type = 'theme'
-        self.app.package.module = theme
-        run(self.app, 'cleanup_theme', [theme])
+        self.app.package.code = theme
+        run(self.app, 'cleanup', [theme])
 
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
