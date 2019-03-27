@@ -81,7 +81,7 @@ class Resources:
 
         if filepath is None:
             placeholders.update({
-                'area': '(frontend|adminhtml)',
+                'area': '.*',
             })
             if code is not None:
                 placeholders.update({
