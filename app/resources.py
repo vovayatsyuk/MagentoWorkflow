@@ -3,23 +3,23 @@ import re
 
 class Resources:
     css_module_resources = [
-        './var/view_preprocessed/pub/static/{area}/.*/{code}/css/{file}',
-        './pub/static/{area}/.*/{code}/css/.*',
+        'var/view_preprocessed/pub/static/{area}/.*/{code}/css/{file}',
+        'pub/static/{area}/.*/{code}/css/.*',
     ]
 
     css_theme_resources = [
-        './var/view_preprocessed/pub/static/{area}/.*/[a-z]*_[A-Z]*/css/styles.*css',
-        './var/view_preprocessed/pub/static/{area}/.*/[a-z]*_[A-Z]*/css/print.*css',
-        './var/view_preprocessed/pub/static/{area}/.*/css/{file}',
-        './pub/static/{area}/.*/[a-z]*_[A-Z]*/css/.*',
+        'var/view_preprocessed/pub/static/{area}/.*/{locale}/css/styles.*css',
+        'var/view_preprocessed/pub/static/{area}/.*/{locale}/css/print.*css',
+        'var/view_preprocessed/pub/static/{area}/.*/css/{file}',
+        'pub/static/{area}/.*/{locale}/css/.*',
     ]
 
     requirejs_resources = [
-        './pub/static/{area}/.*/requirejs-config.js',
+        'pub/static/{area}/.*/requirejs-config.js',
     ]
 
     generated_resources = [
-        './generated/code/{module_folders}/{file}/Interceptor.php',
+        'generated/code/{module_folders}/{file}/Interceptor.php',
     ]
 
     def __init__(self, app):
@@ -36,10 +36,12 @@ class Resources:
             if '.*' not in path:
                 path = path.lstrip('./')
                 cmd = 'rm -rf "{}"'
+            elif '/.*/' in path:
+                basedir, path = path.split('/.*/', 1)
+                cmd = ('find ' + basedir +
+                       ' -type f -regex ".*/{}" -exec rm -rf {{}} \\;')
             else:
-                basedir, path = path.split('.*', 1)
-                cmd = 'find ' + basedir.rstrip('/') + ' -type f -regex ".*{}"'
-                cmd += ' -exec rm -rf {{}} \\;'
+                cmd = 'find . -type f -regex ".*{}" -exec rm -rf {{}} \\;'
 
             commands.append(cmd.format(path))
 
@@ -77,10 +79,12 @@ class Resources:
             'area': self.app.package.area,
             'type': self.app.package.type,
             'file': '.*',
+            'locale': '[a-z]*_[A-Z]*',
         }
 
         if filepath is None:
             placeholders.update({
+                # don't use '[]' or '()'. @see remove method
                 'area': '.*',
             })
             if code is not None:
