@@ -54,6 +54,8 @@ class Resources:
         resources = []
         if filepath is None or '/web/css/' in filepath:
             if (placeholders['type'] == 'module' and
+                    # _module.less a part of theme.
+                    'source/_module.less' not in filepath and
                     # Magento_ module with less file is a part of theme.
                     placeholders['code'].startswith('Magento_') is False):
                 resources.append(self.css_module_resources)
