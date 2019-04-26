@@ -1,12 +1,17 @@
 import re
+import sublime
 
 
 class Cache:
     def __init__(self, app):
         self.app = app
+        self.settings = sublime.load_settings('MagentoWorkflow.sublime-settings')
+
+    def bin_magento(self):
+        return self.settings.get('bin_magento_command')
 
     def flush(self):
-        return self.app.terminal.run('bin/magento cache:flush')
+        return self.app.terminal.run('{} cache:flush')
 
     def clean(self, type=None):
         if type is None:
@@ -14,12 +19,11 @@ class Cache:
             if len(type) == 0:
                 return
 
-        if type is 'All':
-            cmd = 'bin/magento cache:clean'
-        elif isinstance(type, (set, list)):
-            cmd = 'bin/magento cache:clean {}'.format(' '.join(type))
-        else:
-            cmd = 'bin/magento cache:clean {}'.format(type)
+        cmd = '{} cache:clean '.format(self.bin_magento())
+        if isinstance(type, (set, list)):
+            cmd += ' '.join(type)
+        elif type is not 'All':
+            cmd += type
 
         return self.app.terminal.run(cmd)
 
