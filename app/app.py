@@ -1,3 +1,4 @@
+import sublime
 from .cache import Cache
 from .package import Package
 from .resources import Resources
@@ -8,6 +9,7 @@ from .filesystem import *
 class App:
     def __init__(self, filepath, workdir=None):
         self.filepath = filepath
+        self.settings = sublime.load_settings('MagentoWorkflow.sublime-settings')
         self.workdir = self.find_workdir(workdir)
         self.package = Package(self.filepath)
         self.terminal = Terminal(self.workdir)

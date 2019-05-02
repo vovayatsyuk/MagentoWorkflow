@@ -1,14 +1,12 @@
 import re
-import sublime
 
 
 class Cache:
     def __init__(self, app):
         self.app = app
-        self.settings = sublime.load_settings('MagentoWorkflow.sublime-settings')
 
     def bin_magento(self):
-        return self.settings.get('bin_magento_command')
+        return self.app.settings.get('bin_magento_command')
 
     def flush(self):
         return self.app.terminal.run('{} cache:flush')

@@ -50,6 +50,7 @@ class Resources:
 
     def get_patterns(self, filepath=None, code=None):
         placeholders = self.extract_placeholders(filepath, code)
+        allowed_resources = self.app.settings.get('resources', [])
 
         resources = []
         if filepath is None or '/web/css/' in filepath:
@@ -59,14 +60,19 @@ class Resources:
                         'source/_module.less' not in filepath) and
                     # Magento_ module with less file is a part of theme.
                     placeholders['code'].startswith('Magento_') is False):
-                resources.append(self.css_module_resources)
-            else:
-                resources.append(self.css_theme_resources)
 
-        if filepath is None or 'requirejs-config.js' in filepath:
+                if 'css_module' in allowed_resources:
+                    resources.append(self.css_module_resources)
+            else:
+                if 'css_theme' in allowed_resources:
+                    resources.append(self.css_theme_resources)
+
+        if ('requirejs' in allowed_resources and
+                (filepath is None or 'requirejs-config.js' in filepath)):
             resources.append(self.requirejs_resources)
 
-        if (placeholders['type'] == 'module' and
+        if ('generated' in allowed_resources and
+            placeholders['type'] == 'module' and
                 (filepath is None or '.php' in filepath)):
             resources.append(self.generated_resources)
 

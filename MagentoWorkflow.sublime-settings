@@ -1,3 +1,18 @@
+//
+// MagentoWorkflow default settings
+//
 {
-    "bin_magento_command": "bin/magento"
+    // How to call bin/magento command
+    // You can add 'php' prefix for example.
+    "bin_magento_command": "bin/magento",
+
+    // The list of resources to clean
+    // When using grunt during theme developement it's useful to
+    // remove 'css_theme_resources' entry from the list.
+    "resources": [
+        "css_module",
+        "css_theme",
+        "requirejs",
+        "generated"
+    ]
 }
