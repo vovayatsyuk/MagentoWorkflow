@@ -2,8 +2,10 @@
 // MagentoWorkflow default settings
 //
 {
-    // How to call bin/magento command
-    // You can add 'php' prefix for example.
+    // How to call 'bin/magento' command
+    // You can add 'php' prefix for example: 'php bin/magento';
+    // Or, call bin/magento from another directory: '../bin/magento';
+    // Or, markshust/docker-magento compatible: 'docker-compose exec -T phpfpm bin/magento';
     "bin_magento_command": "bin/magento",
 
     // The list of resources to clean

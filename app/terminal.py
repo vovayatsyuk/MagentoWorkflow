@@ -9,11 +9,18 @@ class Terminal:
         if self.workdir is None:
             return
 
-        print('[MagentoWorkflow] {} [dir:{}]'.format(cmd, self.workdir))
+        workdir = self.workdir
+
+        if cmd.startswith('../'):
+            count = cmd.split('../').count('')
+            workdir = '/'.join(workdir.rstrip('/').split('/')[:-count])
+            cmd = cmd.replace('../', '')
+
+        print('[MagentoWorkflow] {} [dir:{}]'.format(cmd, workdir))
 
         return subprocess.check_output(
             cmd,
             shell=True,
-            cwd=self.workdir,
+            cwd=workdir,
             stderr=subprocess.STDOUT
         )
