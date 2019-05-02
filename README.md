@@ -10,9 +10,9 @@ performance, which means faster and enjoyable development.
 > Windows is not supported
 
  1. Run “Package Control: Add Repository” command and add
-    `https://github.com/vovayatsyuk/sublime-magento-workflow.git` link.
+    `https://github.com/vovayatsyuk/MagentoWorkflow.git` link.
  2. Run “Package Control: Install Package” command, find and install
-    `sublime-magento-workflow` plugin.
+    `MagentoWorkflow` plugin.
 
 ## How it Works
 
@@ -33,6 +33,12 @@ Press <kbd>⌘⇧P</kbd> and use MagentoWorkflow commands:
  -  Clear Seleted Caches
  -  Theme: Clear Resources (js, css)
  -  Module: Clear Resources (js, css, php)
+
+## Configuration
+
+Module allows to customize `bin/magento` command path, and select wich resources
+to cleanup when saving the file. The last is useful to disable themes resources
+cleanup when using grunt tool to deploy static content files via symlinks.
 
 ## Snippets
 
