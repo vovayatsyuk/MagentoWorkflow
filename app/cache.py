@@ -9,7 +9,7 @@ class Cache:
         return self.app.settings.get('bin_magento_command')
 
     def flush(self):
-        return self.app.terminal.run('{} cache:flush')
+        return self.app.terminal.run(self.bin_magento() + ' cache:flush')
 
     def clean(self, type=None):
         if type is None:
