@@ -2,8 +2,9 @@
 
 **MagentoWorkflow** — is a SublimeText 3 module aimed to improve Magento 2 module
 and themes development speed. It allows to work under Magento module or theme
-with enabled cache. This approach results in drastically improved Magento
-performance, which means faster and enjoyable development.
+with enabled cache and forget about its cleaning. This approach results in
+drastically improved Magento performance, which means faster and enjoyable
+development.
 
 ## Installation
 
