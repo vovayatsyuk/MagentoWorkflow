@@ -1,5 +1,4 @@
 import subprocess
-import os.path
 
 from .filesystem import *
 
