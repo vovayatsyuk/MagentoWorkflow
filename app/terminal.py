@@ -1,4 +1,7 @@
 import subprocess
+import os.path
+
+from .filesystem import *
 
 
 class Terminal:
@@ -14,6 +17,14 @@ class Terminal:
             cmd = [cmd]
 
         prefix = self.app.settings.get('cmd_prefix')
+        if not prefix:
+            file = closest('bin/clinotty', self.workdir, False, 2)
+            if file:
+                if self.workdir in file:
+                    prefix = 'bin/clinotty'
+                else:
+                    prefix = '../bin/clinotty'
+
         workdir = self.workdir
         if prefix and prefix.startswith('../'):
             count = prefix.split('/').count('..')
