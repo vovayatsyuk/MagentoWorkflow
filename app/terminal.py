@@ -2,19 +2,28 @@ import subprocess
 
 
 class Terminal:
-    def __init__(self, workdir):
-        self.workdir = workdir
+    def __init__(self, app):
+        self.app = app
+        self.workdir = app.workdir
 
     def run(self, cmd):
         if self.workdir is None:
             return
 
-        workdir = self.workdir
+        if not isinstance(cmd, list):
+            cmd = [cmd]
 
-        if cmd.startswith('../'):
-            count = cmd.split('../').count('')
+        prefix = self.app.settings.get('cmd_prefix')
+        workdir = self.workdir
+        if prefix and prefix.startswith('../'):
+            count = prefix.split('/').count('..')
             workdir = '/'.join(workdir.rstrip('/').split('/')[:-count])
-            cmd = cmd.replace('../', '')
+            prefix = prefix.replace('../', '')
+
+        if prefix:
+            cmd[:] = [prefix + ' ' + command for command in cmd]
+
+        cmd = ' && '.join(cmd)
 
         print('[MagentoWorkflow] {} [dir:{}]'.format(cmd, workdir))
 

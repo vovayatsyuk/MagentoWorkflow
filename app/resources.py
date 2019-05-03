@@ -46,7 +46,7 @@ class Resources:
             commands.append(cmd.format(path))
 
         if commands:
-            self.app.terminal.run(' && '.join(commands))
+            self.app.terminal.run(commands)
 
     def get_patterns(self, filepath=None, code=None):
         placeholders = self.extract_placeholders(filepath, code)

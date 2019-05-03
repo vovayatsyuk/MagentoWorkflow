@@ -12,7 +12,7 @@ class App:
         self.settings = sublime.load_settings('MagentoWorkflow.sublime-settings')
         self.workdir = self.find_workdir(workdir)
         self.package = Package(self.filepath)
-        self.terminal = Terminal(self.workdir)
+        self.terminal = Terminal(self)
         self.resources = Resources(self)
         self.cache = Cache(self)
 

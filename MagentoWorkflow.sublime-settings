@@ -2,8 +2,14 @@
 // MagentoWorkflow default settings
 //
 {
+    // This option might be useful when using docker
+    "cmd_prefix": "",
+    //  1. markshust/docker-magento: "../bin/clinotty"
+    // "cmd_prefix": "../bin/clinotty",
+    //  2. Universal solution: "docker-compose exec -T phpfpm"
+    // "cmd_prefix": "docker-compose exec -T phpfpm",
+
     // How to call 'bin/magento' command
-    // 'markshust/docker-magento' example: 'docker-compose exec -T phpfpm bin/magento';
     "bin_magento_command": "bin/magento",
 
     // The list of resources to clean
