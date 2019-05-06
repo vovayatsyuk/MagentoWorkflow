@@ -6,7 +6,7 @@
     // MagentoWorkflow will try to autodetect proper cmd_prefix automatically.
     // Use this option if it doesn't do this properly. Otherwise - leave it empty.
     //  Example:
-    // "cmd_prefix": "docker-compose exec -T phpfpm",
+    // "cmd_prefix": "docker-compose exec -T {service}",
     "cmd_prefix": "",
 
     // How to call 'bin/magento' command

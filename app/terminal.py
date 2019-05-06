@@ -1,6 +1,6 @@
 import subprocess
 
-from .filesystem import *
+from .docker import Docker
 
 
 class Terminal:
@@ -17,12 +17,9 @@ class Terminal:
 
         prefix = self.app.settings.get('cmd_prefix')
         if not prefix:
-            file = closest('bin/clinotty', self.workdir, False, 2)
-            if file:
-                if self.workdir in file:
-                    prefix = 'bin/clinotty'
-                else:
-                    prefix = '../bin/clinotty'
+            service = Docker(self.app).service_name('php')
+            if service:
+                prefix = 'docker-compose exec -T ' + service
 
         workdir = self.workdir
         if prefix and prefix.startswith('../'):
