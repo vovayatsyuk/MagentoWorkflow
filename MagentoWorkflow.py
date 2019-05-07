@@ -99,4 +99,5 @@ class CleanupOnFileSave(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         app = App(view.file_name())
         if app.package.type:
+            run(app, 'sync')
             run(app, 'cleanup')

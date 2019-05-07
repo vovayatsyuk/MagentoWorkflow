@@ -1,7 +1,5 @@
 import subprocess
 
-from .docker import Docker
-
 
 class Terminal:
     def __init__(self, app):
@@ -17,7 +15,7 @@ class Terminal:
 
         prefix = self.app.settings.get('cmd_prefix')
         if not prefix:
-            service = Docker(self.app).service_name('php')
+            service = self.app.docker.service_name('php')
             if service:
                 prefix = 'docker-compose exec -T ' + service
 
@@ -32,6 +30,9 @@ class Terminal:
 
         cmd = ' && '.join(cmd)
 
+        return self.execute(cmd, workdir)
+
+    def execute(self, cmd, workdir):
         print('[MagentoWorkflow] {} [dir:{}]'.format(cmd, workdir))
 
         return subprocess.check_output(

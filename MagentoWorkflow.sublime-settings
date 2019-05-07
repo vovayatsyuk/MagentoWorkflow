@@ -2,13 +2,6 @@
 // MagentoWorkflow default settings
 //
 {
-    // This option might be useful when using docker.
-    // MagentoWorkflow will try to autodetect proper cmd_prefix automatically.
-    // Use this option if it doesn't do this properly. Otherwise - leave it empty.
-    //  Example:
-    // "cmd_prefix": "docker-compose exec -T {service}",
-    "cmd_prefix": "",
-
     // How to call 'bin/magento' command
     // cmd_prefix will be prepended automatically
     "bin_magento_command": "bin/magento",
@@ -21,5 +14,28 @@
         "css_theme",
         "requirejs",
         "generated"
+    ],
+
+    //////////////////////////////
+    // Docker-specific settings //
+    //////////////////////////////
+
+    // cmd_prefix - Prefix to add to every terminal command. Autodetected.
+    //              Change this option when autodetection doesn't work properly.
+    //              Example:
+    //              "cmd_prefix": "docker-compose exec -T {service}",
+    //
+    "cmd_prefix": "",
+
+    // sync_command - Command to run when a file is changed and it must be
+    //                copied to the docker container.
+    //
+    "sync_command": "docker cp {filepath} $(docker-compose ps|grep php|awk '{print $1}'):/var/www/html/{filepath}",
+
+    // sync_folders - sync_command will sync the files from these folders only.
+    //                Must be relative to magento_root.
+    //
+    "sync_folders": [
+        "/vendor/"
     ]
 }

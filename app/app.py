@@ -1,5 +1,6 @@
 import sublime
 from .cache import Cache
+from .docker import Docker
 from .package import Package
 from .resources import Resources
 from .terminal import Terminal
@@ -15,6 +16,7 @@ class App:
         self.terminal = Terminal(self)
         self.resources = Resources(self)
         self.cache = Cache(self)
+        self.docker = Docker(self)
 
     def find_workdir(self, fallback=None):
         workdir = None
@@ -33,3 +35,15 @@ class App:
 
     def flush_cache(self):
         self.cache.flush()
+
+    def sync(self):
+        if not self.docker.config():
+            return
+        command = self.settings.get('sync_command')
+        folders = self.settings.get('sync_folders', [])
+        for folder in folders:
+            if folder in self.filepath:
+                relative_path = folder + self.filepath.split(folder, 1)[1]
+                relative_path = relative_path.lstrip('/')
+                command = command.replace(r'{filepath}', relative_path)
+                self.terminal.execute(command, self.workdir)
