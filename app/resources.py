@@ -18,6 +18,10 @@ class Resources:
         'pub/static/{area}/.*/requirejs-config.js',
     ]
 
+    translation_resources = [
+        'pub/static/{area}/.*/js-translation.json',
+    ]
+
     generated_resources = [
         'generated/code/{module_folders}/{file}/Interceptor.php',
     ]
@@ -70,6 +74,10 @@ class Resources:
         if ('requirejs' in allowed_resources and
                 (filepath is None or 'requirejs-config.js' in filepath)):
             resources.append(self.requirejs_resources)
+
+        if ('translation' in allowed_resources and
+                (filepath is None or '.csv' in filepath)):
+            resources.append(self.translation_resources)
 
         if ('generated' in allowed_resources and
             placeholders['type'] == 'module' and
@@ -155,6 +163,10 @@ class Resources:
                     placeholders.update({
                         'file': file,
                     })
+            elif '.csv' in filepath:
+                placeholders.update({
+                    'area': '.*',
+                })
 
         if placeholders.get('area') == 'base':
             placeholders['area'] = '.*'
