@@ -12,11 +12,11 @@ class App:
         self.filepath = filepath
         self.settings = sublime.load_settings('MagentoWorkflow.sublime-settings')
         self.workdir = self.find_workdir(workdir)
+        self.docker = Docker(self)
         self.package = Package(self.filepath)
         self.terminal = Terminal(self)
         self.resources = Resources(self)
         self.cache = Cache(self)
-        self.docker = Docker(self)
 
     def find_workdir(self, fallback=None):
         workdir = None

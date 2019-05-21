@@ -21,17 +21,24 @@
     // Docker-specific settings //
     //////////////////////////////
 
+    // service - Docker service with Magento. Autodetected.
+    //           Change this option when autodetection doesn't work properly.
+    //           Example:
+    //              "service": "phpfpm",
+    //
+    "service": "",
+
     // cmd_prefix - Prefix to add to every terminal command. Autodetected.
     //              Change this option when autodetection doesn't work properly.
-    //              Example:
-    //              "cmd_prefix": "docker-compose exec -T {service}",
     //
-    "cmd_prefix": "",
+    "cmd_prefix": "docker-compose exec -T {service}",
 
     // sync_command - Command to run when a file is changed and it must be
     //                copied to the docker container.
+    //                Don't need to sync anything? Consider removing folders
+    //                from "sync_folders" option
     //
-    "sync_command": "docker cp {filepath} $(docker-compose ps|grep php|awk '{print $1}'):/var/www/html/{filepath}",
+    "sync_command": "docker cp {filepath} $(docker-compose ps -q {service}|awk '{print $1}'):/var/www/html/{filepath}",
 
     // sync_folders - sync_command will sync the files from these folders only.
     //                Must be relative to magento_root.

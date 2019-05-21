@@ -5,6 +5,9 @@ def closest(name, path, directory=False, max_depth=20):
     """Search for the closest file
     """
 
+    if not path:
+        return None
+
     path = path.rstrip(os.sep)
     folders = path.split(os.sep)
     if os.path.isfile(path):
