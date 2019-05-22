@@ -13,6 +13,7 @@ class Terminal:
 
         if not self.service:
             self.prefix = ''
+            self.service = ''
 
         if self.workdir and self.prefix and self.prefix.startswith('../'):
             count = self.prefix.split('/').count('..')
