@@ -114,11 +114,21 @@ class Resources:
                 # module file?
                 match = re.search(r'view/(\w+)/web/css/(.*)', filepath)
                 if match:
-                    placeholders.update({
-                        'area': match.group(1),
-                        'file': match.group(2),
-                        'type': 'module',
-                    })
+                    if '/source/' in filepath:
+                        # if file is inside 'source' subfolder -
+                        # module inject it's styles into theme styles with
+                        # _module.less file.
+                        placeholders.update({
+                            'area': match.group(1),
+                            'file': match.group(2),
+                            'type': 'theme',
+                        })
+                    else:
+                        placeholders.update({
+                            'area': match.group(1),
+                            'file': match.group(2),
+                            'type': 'module',
+                        })
                 else:
                     # module file inside a theme?
                     match = re.search(
