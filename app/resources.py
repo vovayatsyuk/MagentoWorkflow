@@ -132,7 +132,7 @@ class Resources:
                 else:
                     # module file inside a theme?
                     match = re.search(
-                        self.app.package.code + r'/(\w+)/web/css/(.*)',
+                        r'/(\w+_\w+)/web/css/(.*)',
                         filepath
                     )
                     if match:
