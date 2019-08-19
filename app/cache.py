@@ -31,6 +31,7 @@ class Cache:
             r'/Block/.*\.php': ['block_html'],
             r'/templates/.*\.phtml': ['block_html'],
             r'/layout/.*\.xml': ['layout', 'block_html'],
+            r'/page_layout/.*\.xml': ['layout', 'block_html'],
             r'/ui_component/.*\.xml': ['config'],
             r'/i18n/.*\.csv': ['translate', 'block_html'],
             r'\.(php|xml|json)': ['full_page'],
