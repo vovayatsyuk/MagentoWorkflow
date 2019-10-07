@@ -34,6 +34,7 @@ class Cache:
             r'/page_layout/.*\.xml': ['layout', 'block_html'],
             r'/ui_component/.*\.xml': ['config'],
             r'/i18n/.*\.csv': ['translate', 'block_html'],
+            r'/menu\.xml': ['block_html'],
             r'\.(php|xml|json)': ['full_page'],
             r'/web/css/': ['full_page'],
             r'/requirejs-config\.js': ['full_page'],
