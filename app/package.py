@@ -19,6 +19,7 @@ class Package:
         types = {
             'module': r'[\'"]((\w+_\w+))[\'"]',
             'theme': r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
+            'library': r'[\'"]((\w+/\w+))[\'"]',
         }
 
         contents = open(registration, 'r', encoding='utf-8').read()
