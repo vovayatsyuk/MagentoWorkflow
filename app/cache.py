@@ -29,6 +29,7 @@ class Cache:
         rules = {
             r'/etc/.*\.xml': ['config'],
             r'/Block/.*\.php': ['block_html'],
+            r'/Controller/.*\.php': ['config'],
             r'/templates/.*\.phtml': ['block_html'],
             r'/layout/.*\.xml': ['layout', 'block_html'],
             r'/page_layout/.*\.xml': ['layout', 'block_html'],
