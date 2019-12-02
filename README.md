@@ -1,10 +1,10 @@
 # MagentoWorkflow
 
-**MagentoWorkflow** — is a SublimeText 3 module aimed to improve Magento 2 module
-and themes development speed. It allows to work under Magento module or theme
-with enabled cache and forget about its cleaning. This approach results in
-drastically improved Magento performance, which means faster and enjoyable
-development.
+**MagentoWorkflow** — is a SublimeText 3 plugin that allows to work on Magento
+module or theme with enabled cache and forget about cache clean and outdated
+generated code. Additionally, it takes care about file sync into docker
+environment. This approach results in drastically improved Magento performance,
+which means faster and enjoyable development.
 
 ## Installation
 
@@ -40,6 +40,11 @@ Press <kbd>⌘⇧P</kbd> and use MagentoWorkflow commands:
 Module automatically discovers if you are using docker and run
 commands in appropriate container. Additionally, when docker is detected,
 module will sync changes from `vendor` folder into the docker.
+
+Tested with:
+
+ -  [markshust/docker-magento](https://github.com/markshust/docker-magento)
+ -  [mage2click/docker-magento-mutagen](https://github.com/mage2click/docker-magento-mutagen)
 
 ## Configuration
 
