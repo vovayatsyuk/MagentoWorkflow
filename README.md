@@ -8,7 +8,7 @@ development.
 
 ## Installation
 
-> Windows is not supported
+> Windows is not supported. PR are welcome.
 
  1. Run “Package Control: Add Repository” command and add
     `https://github.com/vovayatsyuk/MagentoWorkflow.git` link.
@@ -35,11 +35,27 @@ Press <kbd>⌘⇧P</kbd> and use MagentoWorkflow commands:
  -  Theme: Clear Resources (js, css)
  -  Module: Clear Resources (js, css, php)
 
+## Docker
+
+Module automatically discovers if you are using docker and run
+commands in appropriate container. Additionally, when docker is detected,
+module will sync changes from `vendor` folder into the docker.
+
 ## Configuration
 
-Module allows to customize `bin/magento` command path, and select wich resources
-to cleanup when saving the file. The last is useful to disable themes resources
-cleanup when using grunt tool to deploy static content files via symlinks.
+**No configuration is required.** Just install the module and it's ready!
+
+While you don't need to change anything to work with MagentoWorkflow, sometimes
+to may need to tune some option.
+
+Option Name         | Default Value                     | Description
+--------------------|-----------------------------------|-------------------------------------------
+bin_magento_command | `bin/magento`                     | Command to run bin/magento.
+resources           | `["css_module", "css_theme", "requirejs", "translation", "generated"]` | The list of resources to clean when needed.
+service             | `EMPTY`                           | Docker service name. Autodetected.
+cmd_prefix          | `docker-compose exec -T {service}`| Prefix to add to every terminal command. Service is taken from service option.
+sync_command        | `docker cp {filepath} $(docker-compose ps -q {service}\|awk '{print $1}'):/var/www/html/{filepath}` | A command that copies files from the host to docker container.
+sync_folders        | `["/vendor/"]`                    | Sync files from host to docker from these folders.
 
 ## Snippets
 
