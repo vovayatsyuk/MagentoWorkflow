@@ -1,4 +1,5 @@
 import re
+import subprocess
 
 
 class Cache:
@@ -8,8 +9,16 @@ class Cache:
     def bin_magento(self):
         return self.app.settings.get('bin_magento_command')
 
+    def run(self, command):
+        try:
+            return self.app.terminal.run(command)
+        except subprocess.CalledProcessError as err:
+            print(err.output.decode().strip('\n\r'))
+            print('[MagentoWorkflow] bin/magento is broken, trying to remove cache manually')
+            return self.app.terminal.run('rm -rf var/cache')
+
     def flush(self):
-        return self.app.terminal.run(self.bin_magento() + ' cache:flush')
+        return self.run(self.bin_magento() + ' cache:flush')
 
     def clean(self, type=None):
         if type is None:
@@ -23,7 +32,7 @@ class Cache:
         elif type is not 'All':
             cmd += type
 
-        return self.app.terminal.run(cmd)
+        return self.run(cmd)
 
     def get_types_to_clean(self):
         rules = {
