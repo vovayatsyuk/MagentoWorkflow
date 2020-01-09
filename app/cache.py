@@ -29,7 +29,7 @@ class Cache:
         cmd = '{} cache:clean '.format(self.bin_magento())
         if isinstance(type, (set, list)):
             cmd += ' '.join(type)
-        elif type is not 'All':
+        elif type != 'All':
             cmd += type
 
         return self.run(cmd)
