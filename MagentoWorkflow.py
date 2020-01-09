@@ -19,6 +19,18 @@ def run(object, method, args=None):
     ThreadProgress(thread)
 
 
+class NameInputHandler(sublime_plugin.TextInputHandler):
+    def __init__(self, placeholder, initial_text):
+        self._placeholder = placeholder
+        self._initial_text = initial_text
+
+    def placeholder(self):
+        return self._placeholder
+
+    def initial_text(self):
+        return self._initial_text
+
+
 class ClearCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         app = get_app(self.view)
@@ -52,47 +64,35 @@ class FlushCacheCommand(sublime_plugin.TextCommand):
 
 
 class CleanupModuleCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+    def run(self, edit, name):
+        self.app.package.type = 'module'
+        self.app.package.code = name
+        run(self.app, 'cleanup', [name])
+
+    def input(self, args):
         self.app = get_app(self.view)
 
         initial_value = 'Magento_Catalog'
         if self.app.package.type is 'module':
             initial_value = self.app.package.code
 
-        self.view.window().show_input_panel(
-            'Enter module name',
-            initial_value,
-            self.on_done,
-            None,
-            None
-        )
-
-    def on_done(self, module):
-        self.app.package.type = 'module'
-        self.app.package.code = module
-        run(self.app, 'cleanup', [module])
+        return NameInputHandler('Enter module name', initial_value)
 
 
 class CleanupThemeCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+    def run(self, edit, name):
+        self.app.package.type = 'theme'
+        self.app.package.code = name
+        run(self.app, 'cleanup', [name])
+
+    def input(self, args):
         self.app = get_app(self.view)
 
         initial_value = 'Magento/luma'
         if self.app.package.type is 'theme':
             initial_value = self.app.package.code
 
-        self.view.window().show_input_panel(
-            'Enter theme name',
-            initial_value,
-            self.on_done,
-            None,
-            None
-        )
-
-    def on_done(self, theme):
-        self.app.package.type = 'theme'
-        self.app.package.code = theme
-        run(self.app, 'cleanup', [theme])
+        return NameInputHandler('Enter theme name', initial_value)
 
 
 class CleanupOnFileSave(sublime_plugin.EventListener):
