@@ -31,7 +31,7 @@ class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
         self.app = get_app(self.view)
         if self.app.workdir is None:
             return
-        sublime.active_window().show_quick_panel(
+        self.view.window().show_quick_panel(
             self.app.cache.type(),
             self.on_done,
             sublime.KEEP_OPEN_ON_FOCUS_LOST
@@ -59,7 +59,7 @@ class CleanupModuleCommand(sublime_plugin.TextCommand):
         if self.app.package.type is 'module':
             initial_value = self.app.package.code
 
-        sublime.active_window().show_input_panel(
+        self.view.window().show_input_panel(
             'Enter module name',
             initial_value,
             self.on_done,
@@ -81,7 +81,7 @@ class CleanupThemeCommand(sublime_plugin.TextCommand):
         if self.app.package.type is 'theme':
             initial_value = self.app.package.code
 
-        sublime.active_window().show_input_panel(
+        self.view.window().show_input_panel(
             'Enter theme name',
             initial_value,
             self.on_done,
