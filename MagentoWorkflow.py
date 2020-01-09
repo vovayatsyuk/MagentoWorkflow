@@ -43,7 +43,7 @@ class CacheInputHandler(sublime_plugin.ListInputHandler):
         return caches
 
 
-class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
+class MagentoWorkflowClearSelectedCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit, cache):
         if cache != 'All':
             cache = [cache, 'full_page']
@@ -59,14 +59,14 @@ class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
         return CacheInputHandler(self.app)
 
 
-class FlushCacheCommand(sublime_plugin.TextCommand):
+class MagentoWorkflowFlushCacheCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         app = get_app(self.view)
         if app.workdir:
             run(app, 'flush_cache')
 
 
-class CleanupModuleCommand(sublime_plugin.TextCommand):
+class MagentoWorkflowCleanupModuleCommand(sublime_plugin.TextCommand):
     def run(self, edit, name):
         self.app.package.type = 'module'
         self.app.package.code = name
@@ -82,7 +82,7 @@ class CleanupModuleCommand(sublime_plugin.TextCommand):
         return NameInputHandler('Enter module name', initial_value)
 
 
-class CleanupThemeCommand(sublime_plugin.TextCommand):
+class MagentoWorkflowCleanupThemeCommand(sublime_plugin.TextCommand):
     def run(self, edit, name):
         self.app.package.type = 'theme'
         self.app.package.code = name
@@ -98,7 +98,7 @@ class CleanupThemeCommand(sublime_plugin.TextCommand):
         return NameInputHandler('Enter theme name', initial_value)
 
 
-class CleanupOnFileSave(sublime_plugin.EventListener):
+class MagentoWorkflowEventListener(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         app = App(view.file_name())
         if app.package.type:

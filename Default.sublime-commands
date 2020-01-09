@@ -1,18 +1,18 @@
 [
     {
         "caption": "MagentoWorkflow: Cache Clear",
-        "command": "clear_selected_cache"
+        "command": "magento_workflow_clear_selected_cache"
     },
     {
         "caption": "MagentoWorkflow: Cache Flush",
-        "command": "flush_cache"
+        "command": "magento_workflow_flush_cache"
     },
     {
         "caption": "MagentoWorkflow: Module Clear",
-        "command": "cleanup_module"
+        "command": "magento_workflow_cleanup_module"
     },
     {
         "caption": "MagentoWorkflow: Theme Clear",
-        "command": "cleanup_theme"
+        "command": "magento_workflow_cleanup_theme"
     }
 ]
