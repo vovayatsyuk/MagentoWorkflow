@@ -31,29 +31,33 @@ class NameInputHandler(sublime_plugin.TextInputHandler):
         return self._initial_text
 
 
-class ClearCacheCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        app = get_app(self.view)
-        if app.workdir:
-            run(app, 'clear_cache', ['All'])
+class CacheInputHandler(sublime_plugin.ListInputHandler):
+    def __init__(self, app):
+        self.app = app
+
+    def placeholder(self):
+        return 'Cache Type'
+
+    def list_items(self):
+        caches = self.app.cache.type()
+        caches.insert(0, ['All', 'All'])
+        return caches
 
 
 class ClearSelectedCacheCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+    def run(self, edit, cache):
+        if cache != 'All':
+            cache = [cache, 'full_page']
+
+        run(self.app, 'clear_cache', [cache])
+
+    def input(self, args):
         self.app = get_app(self.view)
+
         if self.app.workdir is None:
             return
-        self.view.window().show_quick_panel(
-            self.app.cache.type(),
-            self.on_done,
-            sublime.KEEP_OPEN_ON_FOCUS_LOST
-        )
 
-    def on_done(self, index):
-        if index == -1:
-            return
-        caches = [self.app.cache.type(index), 'full_page']
-        run(self.app, 'clear_cache', [caches])
+        return CacheInputHandler(self.app)
 
 
 class FlushCacheCommand(sublime_plugin.TextCommand):

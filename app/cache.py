@@ -61,17 +61,12 @@ class Cache:
 
         return types
 
-    def type(self, index=False):
-        types = [
-            'block_html',
-            'config',
-            'db_ddl',
-            'full_page',
-            'layout',
-            'translate',
+    def type(self):
+        return [
+            ['Block HTML Output', 'block_html'],
+            ['Configuration', 'config'],
+            ['Database DDL operations', 'db_ddl'],
+            ['FPC', 'full_page'],
+            ['Layouts', 'layout'],
+            ['Translations', 'translate'],
         ]
-
-        if index is not False:
-            return types[index]
-
-        return list(types)
