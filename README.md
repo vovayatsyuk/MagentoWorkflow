@@ -10,10 +10,8 @@ which means faster and enjoyable development.
 
 > Windows is not supported. PR are welcome.
 
- 1. Run “Package Control: Add Repository” command and add
-    `https://github.com/vovayatsyuk/MagentoWorkflow.git` link.
- 2. Run “Package Control: Install Package” command, find and install
-    `MagentoWorkflow` plugin.
+ 1. Run “Package Control: Install Package” command
+ 2. Type `MagentoWorkflow` and press <kbd>Enter</kbd>
 
 ## How it Works
 
