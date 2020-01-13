@@ -26,6 +26,10 @@ class App:
             workdir = closest('bin/magento', fallback, True)
         return workdir
 
+    def wipe(self):
+        self.resources.removeAll()
+        self.cache.flush()
+
     def cleanup(self, code=None):
         self.resources.remove(code)
         self.cache.clean('All' if code else None)

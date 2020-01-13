@@ -98,6 +98,13 @@ class MagentoWorkflowCleanupThemeCommand(sublime_plugin.TextCommand):
         return NameInputHandler('Enter theme name', initial_value)
 
 
+class MagentoWorkflowWipeCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        app = get_app(self.view)
+        if app.workdir:
+            run(app, 'wipe')
+
+
 class MagentoWorkflowEventListener(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         app = App(view.file_name())

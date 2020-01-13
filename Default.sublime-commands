@@ -14,5 +14,9 @@
     {
         "caption": "MagentoWorkflow: Theme Clear",
         "command": "magento_workflow_cleanup_theme"
+    },
+    {
+        "caption": "MagentoWorkflow: Wipe All",
+        "command": "magento_workflow_wipe"
     }
 ]

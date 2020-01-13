@@ -29,6 +29,16 @@ class Resources:
     def __init__(self, app):
         self.app = app
 
+    def removeAll(self):
+        self.remove([
+            'var/view_preprocessed/pub/static/frontend',
+            'var/view_preprocessed/pub/static/adminhtml',
+            'pub/static/frontend',
+            'pub/static/adminhtml',
+            'generated/code',
+            'generated/metadata',
+        ])
+
     def remove(self, patterns=None):
         if patterns is None:
             patterns = self.get_patterns(self.app.filepath)
