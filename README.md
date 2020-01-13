@@ -27,6 +27,7 @@ in Sublime's status bar.
 Pulled a lot of changes from remote repository? We've got your back!
 Press <kbd>⌘⇧P</kbd> and use MagentoWorkflow commands:
 
+ -  Wipe All - Cleanup all resources and flush cache storage
  -  Clear Cache - Cleanup selected magento cache
  -  Flush Cache - Flush cache storage
  -  Theme Clear - Cleanup theme resources (js, css)
