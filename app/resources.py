@@ -26,6 +26,10 @@ class Resources:
         'generated/code/{module_folders}/{file}/Interceptor.php',
     ]
 
+    extension_attributes = [
+        'generated/code/.*/.*/Api/Data/.*',
+    ]
+
     def __init__(self, app):
         self.app = app
 
@@ -89,10 +93,11 @@ class Resources:
                 (filepath is None or '.csv' in filepath)):
             resources.append(self.translation_resources)
 
-        if ('generated' in allowed_resources and
-            placeholders['type'] == 'module' and
-                (filepath is None or '.php' in filepath)):
-            resources.append(self.generated_resources)
+        if 'generated' in allowed_resources and placeholders['type'] == 'module':
+            if filepath is None or '.php' in filepath:
+                resources.append(self.generated_resources)
+            elif 'extension_attributes.xml' in filepath:
+                resources.append(self.extension_attributes)
 
         patterns = []
         for resource in resources:
