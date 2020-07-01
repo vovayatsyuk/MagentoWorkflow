@@ -20,7 +20,7 @@ class Terminal:
             self.workdir = '/'.join(self.workdir.rstrip('/').split('/')[:-count])
             self.prefix = self.prefix.replace('../', '')
 
-    def run(self, cmd):
+    def run(self, cmd, separator=' && '):
         if self.workdir is None:
             return
 
@@ -30,7 +30,7 @@ class Terminal:
         if self.prefix:
             cmd[:] = [self.prefix + ' ' + command for command in cmd]
 
-        cmd = ' && '.join(cmd)
+        cmd = separator.join(cmd)
 
         return self.execute(cmd, self.workdir)
 
