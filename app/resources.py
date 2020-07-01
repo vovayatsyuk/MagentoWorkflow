@@ -26,6 +26,10 @@ class Resources:
         'generated/code/{module_folders}/{file}/Interceptor.php',
     ]
 
+    generated_metadata = [
+        'generated/metadata',
+    ]
+
     extension_attributes = [
         'generated/code/.*/.*/Api/Data/.*',
     ]
@@ -71,6 +75,11 @@ class Resources:
         allowed_resources = self.app.settings.get('resources', [])
 
         resources = []
+
+        if 'generated' in allowed_resources:
+            if filepath is None or '.php' in filepath or '.xml' in filepath:
+                resources.append(self.generated_metadata)
+
         if filepath is None or '/web/css/' in filepath:
             if (placeholders['type'] == 'module' and
                     # _module.less a part of theme.
