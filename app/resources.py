@@ -5,6 +5,7 @@ class Resources:
     css_module_resources = [
         'var/view_preprocessed/pub/static/{area}/.*/{code}/css/{file}',
         'pub/static/{area}/.*/{code}/css/.*',
+        'pub/static/_cache/merged/.*',
     ]
 
     css_theme_resources = [
