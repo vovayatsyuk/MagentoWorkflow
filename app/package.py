@@ -12,6 +12,12 @@ class Package:
         if filepath is None:
             return
 
+        if 'lib/web/css/source' in filepath:
+            self.type = 'theme'
+            self.area = 'base'
+            self.code = '.*'
+            return
+
         registration = closest('registration.php', filepath)
         if registration is None:
             return
