@@ -111,3 +111,5 @@ class MagentoWorkflowEventListener(sublime_plugin.EventListener):
         if app.package.type:
             run(app, 'sync')
             run(app, 'cleanup')
+        elif app.workdir:
+            run(app, 'flush_cache')
