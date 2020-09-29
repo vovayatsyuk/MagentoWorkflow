@@ -39,7 +39,7 @@ class Cache:
             r'/etc/.*\.(xml|xsd)': ['config'],
             r'/Block/.*\.php': ['block_html'],
             r'/Controller/.*\.php': ['config'],
-            r'/Plugin/.*Layout.*\.php': ['layout'],
+            r'/.*Layout.*\.php': ['layout'],
             r'/templates/.*\.phtml': ['block_html'],
             r'/layout/.*\.xml': ['layout', 'block_html'],
             r'/page_layout/.*\.xml': ['layout', 'block_html'],
