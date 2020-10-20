@@ -18,5 +18,9 @@
     {
         "caption": "MagentoWorkflow: Wipe All",
         "command": "magento_workflow_wipe"
+    },
+    {
+        "caption": "MagentoWorkflow: Toggle Event Listeners",
+        "command": "magento_workflow_toggle_event_listeners"
     }
 ]
