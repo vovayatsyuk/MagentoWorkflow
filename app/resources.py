@@ -85,8 +85,8 @@ class Resources:
         if filepath is None or '/web/css/' in filepath:
             if (placeholders['type'] == 'module' and
                     # _module.less a part of theme.
-                    (filepath is None or
-                        'source/_module.less' not in filepath) and
+                    (filepath is None or 'source/_module.less' not in filepath) and
+                    (filepath is None or 'breeze/' not in filepath) and
                     # Magento_ module with less file is a part of theme.
                     placeholders['code'].startswith('Magento_') is False):
 
@@ -140,7 +140,7 @@ class Resources:
                 # module file?
                 match = re.search(r'view/(\w+)/web/css/(.*)', filepath)
                 if match:
-                    if '/source/' in filepath:
+                    if '/source/' in filepath or '/breeze/' in filepath:
                         # if file is inside 'source' subfolder -
                         # module inject it's styles into theme styles with
                         # _module.less file.
