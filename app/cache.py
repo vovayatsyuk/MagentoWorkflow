@@ -49,6 +49,7 @@ class Cache:
             r'\.(php|xml|json)': ['full_page'],
             r'/web/css/': ['full_page'],
             r'/requirejs-config\.js': ['full_page'],
+            r'/.*\.html': ['full_page'],
         }
 
         types = set()
