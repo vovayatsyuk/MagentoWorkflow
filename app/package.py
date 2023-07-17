@@ -23,7 +23,7 @@ class Package:
             return
 
         types = {
-            'module': r'[\'"]((\w+_\w+))[\'"]',
+            'module': r',\s+[\'"]((\w+_\w+))[\'"]',
             'theme': r'[\'"](frontend|adminhtml)/([\w-]+/[\w-]+)[\'"]',
             'library': r'[\'"]((\w+/\w+))[\'"]',
         }
