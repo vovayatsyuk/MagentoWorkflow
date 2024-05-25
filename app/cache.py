@@ -43,6 +43,7 @@ class Cache:
             r'/templates/.*\.phtml': ['block_html'],
             r'/layout/.*\.xml': ['layout', 'block_html'],
             r'/page_layout/.*\.xml': ['layout', 'block_html'],
+            r'/pagebuilder/.*\.xml': ['config'],
             r'/ui_component/.*\.xml': ['config'],
             r'/i18n/.*\.csv': ['translate', 'block_html'],
             r'/menu\.xml': ['block_html'],
