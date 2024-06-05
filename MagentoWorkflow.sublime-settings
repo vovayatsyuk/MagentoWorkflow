@@ -12,6 +12,7 @@
     "resources": [
         "css_module",
         "css_theme",
+        "jsbundle",
         "requirejs",
         "translation",
         "generated"
