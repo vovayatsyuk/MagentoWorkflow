@@ -49,6 +49,7 @@ class Cache:
             r'/menu\.xml': ['block_html'],
             r'\.(php|xml|json)': ['full_page'],
             r'/web/css/': ['full_page'],
+            r'/web/js/': ['full_page', 'block_html'],
             r'/requirejs-config\.js': ['full_page'],
             r'/.*\.html': ['full_page'],
         }
