@@ -16,7 +16,8 @@ class Resources:
         'pub/static/_cache/merged/.*',
     ]
 
-    jsbundle_resources = [
+    js_resources = [
+        'pub/static/{area}/.*/{code}/js/{file_without_ext}.min.js',
         'pub/static/{area}/.*/{locale}/Swissup_Breeze/bundles/.*',
     ]
 
@@ -100,9 +101,9 @@ class Resources:
                 if 'css_theme' in allowed_resources:
                     resources.append(self.css_theme_resources)
 
-        if ('jsbundle' in allowed_resources and
+        if ('js' in allowed_resources and
                 (filepath is None or '/web/js/' in filepath)):
-            resources.append(self.jsbundle_resources)
+            resources.append(self.js_resources)
 
         if ('requirejs' in allowed_resources and
                 (filepath is None or 'requirejs-config.js' in filepath)):
@@ -193,9 +194,10 @@ class Resources:
                             'area': match.group(1)
                         })
             elif '/web/js/' in filepath:
-                match = re.search(r'view/(\w+)/web/js/.*', filepath)
+                match = re.search(r'view/(\w+)/web/js/(.*)\.js', filepath)
                 placeholders.update({
                     'area': match.group(1),
+                    'file_without_ext': match.group(2),
                 })
             elif '.php' in filepath:
                 match = re.search(
