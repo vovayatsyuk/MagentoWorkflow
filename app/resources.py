@@ -50,6 +50,7 @@ class Resources:
             'var/view_preprocessed/pub/static/adminhtml',
             'pub/static/frontend',
             'pub/static/adminhtml',
+            'pub/static/_cache/merged',
             'generated/code',
             'generated/metadata',
         ])
