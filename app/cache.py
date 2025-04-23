@@ -36,7 +36,7 @@ class Cache:
 
     def get_types_to_clean(self):
         rules = {
-            r'/etc/.*\.(xml|xsd)': ['config'],
+            r'/etc/.*\.(xml|xsd)': ['config', 'compiled_config'],
             r'/Block/.*\.php': ['block_html'],
             r'/Controller/.*\.php': ['config'],
             r'/.*Layout.*\.php': ['layout'],
