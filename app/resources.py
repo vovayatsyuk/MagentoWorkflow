@@ -35,6 +35,7 @@ class Resources:
 
     generated_metadata = [
         'generated/metadata',
+        'generated/staticcache',
     ]
 
     extension_attributes = [
@@ -53,6 +54,7 @@ class Resources:
             'pub/static/_cache/merged',
             'generated/code',
             'generated/metadata',
+            'generated/staticcache',
         ])
 
     def remove(self, patterns=None):
