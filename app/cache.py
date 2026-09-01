@@ -19,7 +19,7 @@ class Cache:
 
     def flush(self):
         result = self.run(self.bin_magento() + ' cache:flush')
-        self.run('rm -rf var/page_cache')
+        self.run('rm -rf var/cache var/page_cache')
         return result
 
     def clean(self, type=None):
